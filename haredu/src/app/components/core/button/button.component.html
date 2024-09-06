@@ -1,0 +1,24 @@
+<button
+  [type]="btnType"
+  [style.width]="width"
+  [style.height]="height"
+  class="app-button"
+  [ngClass]="ngClass"
+  [nzBlock]="fullWidth"
+  [class.active]="active"
+  [style]="{ fontSize: fontSize }"
+  nz-button
+  [nzType]="type"
+  [nzSize]="size"
+  [nzDanger]="nzDanger"
+  [disabled]="disable"
+>
+  <span *ngIf="icon && isPrefix" nz-icon [nzType]="icon"></span>
+  <mat-icon class="mr-2" *ngIf="svgIcon && isPrefix" [svgIcon]="svgIcon"></mat-icon>
+  <span *ngIf="label">
+    {{ label | transloco }}
+  </span>
+  <ng-content *ngIf="!label" [select]="content"></ng-content>
+  <span *ngIf="icon && !isPrefix" nz-icon [nzType]="icon"></span>
+  <mat-icon class="ml-2" *ngIf="svgIcon && !isPrefix" [svgIcon]="svgIcon"></mat-icon>
+</button>

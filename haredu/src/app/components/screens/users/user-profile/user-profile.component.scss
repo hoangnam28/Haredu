@@ -1,0 +1,39 @@
+.circular-avatar {
+  width: 100px; /* Adjust size as needed */
+  height: 100px; /* Adjust size as needed */
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.teaching-fileds-list p {
+  margin-right: 10px;
+  background-color: var(--ant-primary-color);
+  padding: 5px 10px;
+  border-radius: 100px;
+  color: white;
+}
+
+:host ::ng-deep .avatar-uploader .ant-upload {
+  border-radius: 50%;
+}
+
+.img-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+}
+
+:host ::ng-deep .cccd-uploader .ant-upload {
+  width: 100%;
+  padding-top: 56.25%; /* 9 / 16 * 100 */
+  position: relative;
+  height: 0; /* Reset height to make padding-top take effect */
+}
+
+:host ::ng-deep .cccd-uploader .ant-upload > * {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

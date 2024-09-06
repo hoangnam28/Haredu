@@ -1,0 +1,59 @@
+@import '../variables';
+
+[_nghost-ng-c3392130527] {
+  height: $input-height;
+
+  .ng2-tag-input[_ngcontent-ng-c3392130527] {
+    border-radius: $input-radius;
+    padding: 0.1rem 0.25rem 0 0.25rem;
+    border: 1px solid $ant-input-border-color;
+    height: $input-height;
+  }
+
+  .ng2-tag-input.ng2-tag-input--focused[_ngcontent-ng-c3392130527] {
+    border: none;
+    border-radius: $input-radius;
+    border: 1px solid #7267f0da;
+    box-shadow: 0 0 0 2px #7367f020;
+    height: $input-height;
+  }
+
+  .ng2-tags-container {
+    height: 100%;
+
+    form {
+      height: 100%;
+      .ng2-tag-input__text-input[_ngcontent-ng-c4064572286] {
+        height: calc(100% - 0.2rem);
+      }
+    }
+
+    tag {
+      cursor: unset;
+
+      &:not(:focus):not(.tag--editing):not(:active):not(.readonly):hover {
+        box-shadow: none;
+      }
+
+      [_ngcontent-ng-c1851440421] {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .tag-wrapper {
+          .tag__text {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            margin-right: .25rem;
+          }
+
+          delete-icon[_nghost-ng-c1802487489]:hover {
+            transform: scale(1.2) !important;
+          }
+        }
+      }
+    }
+  }
+}

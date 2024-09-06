@@ -1,0 +1,33 @@
+.table-operations {
+  margin-bottom: 16px;
+}
+
+.table-operations > button {
+  margin-right: 8px;
+}
+
+td.ant-table-cell {
+  padding: 8px;
+}
+
+.video-item {
+  display: flex;
+  align-items: center;
+  img {
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+}
+
+td.add-video-td {
+  text-align: center;
+  cursor: pointer;
+
+  div {
+    font-size: 20px;
+    color: #52c41a;
+    span {
+      margin-right: 10px;
+    }
+  }
+}

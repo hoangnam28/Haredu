@@ -1,0 +1,23 @@
+<h2 class="heading" *ngIf="!listVideoRender.length">No Any Video</h2>
+
+<div *ngFor="let listVideoCate of listVideoRender">
+  <h2 class="heading">
+    {{ listVideoCate.name }}
+  </h2>
+  <div class="list-container">
+    <div *ngFor="let item of listVideoCate.listVideo" class="vid-list">
+      <a [routerLink]="['/videos', item._id]">
+        <div class="img-container"><img [src]="serverUrl + item.thumbnail" class="thumbnail" /></div
+      ></a>
+      <div class="flex-div">
+        <div class="vid-info">
+          <div class="name-video-container">
+            <a [routerLink]="['/videos', item._id]">{{ item?.name }}</a>
+          </div>
+          <p>{{ item?.view }} Views</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="my-4 text-bold" />
+</div>

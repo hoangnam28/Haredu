@@ -1,0 +1,41 @@
+<nz-card class="product-card-container" nz-col>
+  <div class="image relative">
+    <img [alt]="video.image" [src]="video.image" />
+    <span
+      class="absolute top-[50%] left-[50%] text-white text-[24px] transform -translate-x-[50%] -translate-y-[50%]"
+      nz-icon
+      nzType="play-circle"
+      nzTheme="outline"
+    ></span>
+  </div>
+  <div class="flex">
+    <div class="flex cursor-pointer mt-5 items-center gap-2">
+      <div class="flex items-center justify-center">
+        <mat-icon class="w-10 h-10 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+      </div>
+
+      <div class="sm:flex sm:flex-col sm:items-start hidden mr-3">
+        <span class="font-semibold opacity-85"
+          >{{ video.user.name
+          }}<button class="ml-3 text-[10px] h-[24px] text-white bg-green-600" nz-button>
+            {{ [video.user.role] | memo: getRoleName }}
+          </button></span
+        >
+        <span class="opacity-70">{{ video.createdAt | date: 'HH:mm | dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-1 mt-2">
+    <nz-tag *ngFor="let filed of video.teachingFileds">{{ filed.name }}</nz-tag>
+  </div>
+  <div
+    class="product-name-container sm:h-[11vh] sm:max-h-[11vh] xl:h-[6vh] xl:max-h-[6vh]"
+    nz-tooltip
+    [nzTooltipTitle]="video.title"
+  >
+    <div class="product-name my-5 large-title font-semibold" nz-typography>{{ video.title | transloco }}</div>
+  </div>
+  <div class="product-name-container sm:h-[22vh] sm:max-h-[22vh] xl:h-[12vh] xl:max-h-[12vh]">
+    <div class="product-name my-5 text-xl" nz-typography>{{ video.description | transloco }}</div>
+  </div>
+</nz-card>

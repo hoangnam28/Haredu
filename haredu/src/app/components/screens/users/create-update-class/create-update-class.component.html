@@ -1,0 +1,111 @@
+<div class="flex justify-center">
+  <nz-card class="w-[80%] h-full" [nzBordered]="true">
+    <app-fragment>
+      <div class="flex justify-center large-title">Create a new class</div>
+      <form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+        <nz-form-item>
+          <nz-form-label nzFor="name">{{ 'screens.users.className' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-input-group>
+              <input autofocus nz-input formControlName="name" (blur)="onBlur('name')" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control>
+            <nz-select
+              (blur)="onBlur('teachFileds')"
+              formControlName="teachFileds"
+              nzMode="multiple"
+              nzPlaceHolder="{{ 'screens.auth.filedStudy' | transloco }}"
+            >
+              <nz-option *ngFor="let filed of fileds" [nzValue]="filed._id" [nzLabel]="filed.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="price">{{ 'screens.users.price' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-input-group>
+              <input type="number" nz-input formControlName="price" (blur)="onBlur('price')" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="thumbnail">Thumbnail</nz-form-label>
+          <nz-form-control>
+            <nz-upload
+              id="thumbnail"
+              name="thumbnail"
+              class="avatar-uploader"
+              [nzAction]="apiUrl + '/galleries/create'"
+              nzName="images"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event, 'thumbnail')"
+            >
+              <ng-container *ngIf="!formGroup.value.thumbnail">
+                <div class="ant-upload-text">Add image</div>
+              </ng-container>
+              <img *ngIf="formGroup.value.thumbnail" [src]="formGroup.value.thumbnail" style="width: 100%" />
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="banner">Banner</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-upload
+              id="banner"
+              name="banner"
+              class="avatar-uploader"
+              [nzAction]="apiUrl + '/galleries/create'"
+              nzName="images"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event, 'banner')"
+            >
+              <ng-container *ngIf="!formGroup.value.banner">
+                <div class="ant-upload-text">Add image</div>
+              </ng-container>
+              <img *ngIf="formGroup.value.banner" [src]="formGroup.value.banner" style="width: 100%" />
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="description">Description</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <editor
+              [apiKey]="tinyKey"
+              id=""
+              [init]="init"
+              initialValue=""
+              [inline]="false"
+              plugins=""
+              toolbar=""
+              tagName="div"
+              menubar=""
+              formControlName="description"
+              id="description"
+              name="description"
+            ></editor>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label nzFor="date">Set a time that allows students to register</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-input-group>
+              <nz-range-picker formControlName="date" (ngModelChange)="onChangeDate($event)"></nz-range-picker>
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button nzType="primary" type="submit">Create</button>
+      </form>
+    </app-fragment>
+  </nz-card>
+</div>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

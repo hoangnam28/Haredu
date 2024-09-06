@@ -1,0 +1,99 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import './mixins';
+@import './variables';
+
+.btn-edit {
+  mat-icon {
+    margin-right: 0 !important;
+  }
+}
+
+.title-page-container {
+  margin-bottom: 20px;
+  .title-page {
+    font-size: $large-font-title;
+    font-weight: $large-title-weight;
+  }
+}
+
+.default-title {
+  font-size: $default-font-title;
+  font-weight: $default-title-weight;
+}
+
+.default-text {
+  font-size: $default-font;
+  font-weight: $default-weight;
+}
+
+.default-text-bold {
+  font-size: $default-font;
+  font-weight: $default-title-weight;
+}
+
+.large-text {
+  font-size: $font-16;
+  font-weight: $default-weight;
+}
+
+.large-text-1xl {
+  font-size: $font-20;
+  font-weight: $default-weight;
+}
+
+.large-text-bold {
+  font-size: $font-16;
+  font-weight: $default-title-weight;
+}
+
+.large-title {
+  font-size: $large-font-title;
+  font-weight: $default-title-weight;
+}
+
+.link-container {
+  color: $primary-color;
+  font-weight: $default-title-weight;
+  cursor: pointer;
+}
+
+.text-link {
+  color: $primary-color;
+  cursor: pointer;
+}
+
+.text-message {
+  color: $gray-600;
+  font-size: $font-16;
+}
+
+.small-text {
+  font-size: $font-12;
+  font-weight: $default-weight;
+}
+
+.link:hover {
+  color: $primary-color;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.normal-layout-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.normal-layout-inner-content {
+  margin-top: 10vh;
+}
+
+.form-search-normal-layout {
+  position: sticky;
+  top: 10vh;
+  z-index: 20;
+}

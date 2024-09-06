@@ -1,0 +1,67 @@
+@import '../variables';
+
+.ant-form-item {
+  width: 100%;
+
+  .ant-form-item-label {
+    padding: 0;
+
+    label {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+
+  .ant-form-item-control {
+    /* Input with wrapper */
+    .ant-input-affix-wrapper {
+      border-radius: $input-radius;
+
+      .ant-input {
+        height: calc($input-height - 8px - 2px);
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+
+    /* Input vanilla */
+    .ant-input {
+      border-radius: $input-radius;
+      height: $input-height;
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    /* Select */
+    .ant-select-selector {
+      border-radius: $input-radius;
+
+      .ant-select-selection-search-input {
+        height: 100%;
+      }
+
+      .ant-select-selection-item,
+      .ant-select-selection-placeholder {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}
+
+.ant-input-affix-wrapper {
+  border-radius: $input-radius;
+
+  .ant-input {
+    height: calc($input-height - 8px - 2px);
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+.ant-input {
+  border-radius: $input-radius;
+  height: $input-height;
+  font-size: 1rem;
+  font-weight: 400;
+}

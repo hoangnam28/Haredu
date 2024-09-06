@@ -1,0 +1,284 @@
+/* Libs */
+@import '~ng-zorro-antd/ng-zorro-antd.variable.min.css';
+
+/* Custom */
+@import './components/input';
+@import './components/card-skeleton';
+@import './components/pagination';
+@import './components/tiny-editor';
+@import './components//tag-input';
+
+:root {
+  --ant-primary-color: #7367f0;
+  --ant-primary-color-hover: #7267f0da;
+  --ant-primary-color-active: #7367f0;
+  --ant-primary-color-outline: #7367f020;
+  --ant-primary-1: #7267f049;
+  --ant-primary-2: #7267f062;
+  --ant-primary-3: #7267f07a;
+  --ant-primary-4: #7267f0a2;
+  --ant-primary-5: #7267f0cb;
+  --ant-primary-6: #7267f0e0;
+  --ant-primary-7: #7267f0f3;
+  --ant-primary-color-deprecated-l-35: #cbe6ff;
+  --ant-primary-color-deprecated-l-20: #7ec1ff;
+  --ant-primary-color-deprecated-t-20: #46a6ff;
+  --ant-primary-color-deprecated-t-50: #8cc8ff;
+  --ant-primary-color-deprecated-f-12: rgba(24, 144, 255, 0.12);
+  --ant-primary-color-active-deprecated-f-30: rgba(230, 247, 255, 0.3);
+  --ant-primary-color-active-deprecated-d-02: #dcf4ff;
+}
+
+body {
+  background-color: $gray-50;
+  font-family: 'Inter', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: 'slnt' 0;
+  height: 100%;
+  font-size: $default-font;
+  font-weight: $default-weight;
+}
+
+.menu-disabled {
+  li,
+  li * {
+    color: $text-shadow !important;
+    background: 0 0 !important;
+    cursor: not-allowed !important;
+  }
+}
+
+button {
+  &:focus {
+    outline: 0;
+  }
+}
+
+a,
+mat-icon {
+  cursor: pointer;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Scroll bar */
+body {
+  scrollbar-width: thin; /* Firefox */
+  -webkit-scrollbar-width: thin; /* Webkit browsers */
+  -webkit-scrollbar-thumb: transparent; /* Webkit browsers */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
+
+/* Ant Card*/
+
+.ant-card-bordered {
+  box-shadow: $box-shadow;
+}
+
+.ant-card-head-title {
+  font-size: $default-font-title;
+  font-weight: $default-title-weight;
+}
+
+.ant-card-body .text-normal-bold {
+  font-size: $default-font;
+  font-weight: $default-title-weight;
+}
+
+.ant-layout-header {
+  height: unset;
+  line-height: unset;
+}
+
+.ant-card-meta-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ant-btn {
+  font-size: $default-font;
+  font-weight: $default-title-weight;
+  border-radius: 4px;
+}
+
+/* Ant modal */
+
+.ant-modal-content {
+  border-radius: 6px;
+  margin: 1rem;
+
+  .ant-modal-body {
+    &:has(.no-padding-modal) {
+      padding: 0;
+    }
+  }
+}
+
+/* Ant dropdown */
+.ant-dropdown-menu {
+  border-radius: 6px;
+
+  .ant-dropdown-menu-item {
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+  }
+
+  .flex-items {
+    .ant-menu-title-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+  }
+
+  .active {
+    background-color: rgba($primary, 20%);
+    color: $primary;
+  }
+}
+
+/* Ant TabSet */
+.ant-tabs-content {
+  height: 100%;
+}
+
+.ant-tabs-left > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane,
+.ant-tabs-left > div > .ant-tabs-content-holder > .ant-tabs-content > .ant-tabs-tabpane {
+  padding-left: 1rem;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow:
+    0 5px 5px -3px rgba(0, 0, 0, 0.2),
+    0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.example-box:last-child {
+  border: none;
+}
+
+.example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Ant drawer*/
+
+.ant-drawer-right.ant-drawer-open .ant-drawer-content-wrapper {
+  box-shadow: none;
+}
+
+.ant-drawer {
+  .ant-drawer-mask {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.td-avatar {
+  .ant-avatar-string {
+    position: relative;
+    left: 0;
+  }
+}
+
+// .profile-container {
+//   .ant-layout {
+//     background-color: white;
+//   }
+// }
+
+.header {
+  .ant-layout-header {
+    padding: 0;
+  }
+}
+
+video {
+  max-width: none;
+}
+
+#local {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  width: 200px;
+  height: 200px;
+  z-index: 30;
+}
+
+#local.host-video, .host-video > #local {
+  width: 100%;
+  height: 100%;
+  right: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+}
+
+.host-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  right: 0 !important;
+  left: 0 !important;
+  bottom: 0 !important;
+}
+
+.member-video-container {
+  position: relative;
+  width: 450px;
+  height: 25vh;
+  border-radius: 20px;
+
+  .member-name {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-weight: 600px;
+    color: whitesmoke;
+  }
+
+  video {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}

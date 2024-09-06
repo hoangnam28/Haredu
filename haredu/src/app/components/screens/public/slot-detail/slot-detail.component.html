@@ -1,0 +1,11 @@
+<div class="flex items-center">
+  <mat-icon (click)="backPage()">keyboard_backspace</mat-icon>
+  <h4 class="mb-0 ml-2" nz-typography>{{ currentSlot?.title }}</h4>
+</div>
+
+<button *ngIf="userRole === role.STUDENT" id="join-btn" nzType="primary" nzGhost (click)="joinStream()" nz-button>
+  Join Stream
+</button>
+<button *ngIf="userRole === role.TUTOR" id="join-btn" nzType="primary" nzGhost (click)="createStream()" nz-button>
+  {{ this.room ? 'Join room' : 'Create Stream' }}
+</button>

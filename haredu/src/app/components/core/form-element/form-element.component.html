@@ -1,0 +1,17 @@
+<nz-form-item class="flex flex-row gap-4 items-center" [ngClass]="formItemCustomClass">
+  <div
+    class="flex flex-row w-[220px] items-center custom-label"
+    [ngClass]="{
+      'justify-between': justifyLabel === 'between',
+      'justify-end': justifyLabel === 'end'
+    }"
+  >
+    <nz-form-label class="text-left" [nzFor]="labelFor" [nzNoColon]="true" [nzLabelWrap]="true">
+      <span labelTooltip>{{ label | transloco }}</span>
+    </nz-form-label>
+    <span *ngIf="isRequired" class="required">{{ 'common.form.required' | transloco }}</span>
+  </div>
+  <div class="custom-form-control flex-1">
+    <ng-content [select]=content></ng-content>
+  </div>
+</nz-form-item>

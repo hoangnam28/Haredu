@@ -1,0 +1,22 @@
+cache:
+  key:
+    files:
+      - package.json
+  paths:
+    - node_modules/
+
+variables:
+  GIT_DEPTH: 0
+
+stages:
+  - lint
+
+lint:
+  image: node:18-alpine
+  stage: lint
+  before_script:
+    - npm install -g @angular/cli@17.3.3
+    - node --max-old-space-size=4096 `which npm` install --legacy-peer-deps
+  script:
+    - npm run lint
+    - npm run build:prod

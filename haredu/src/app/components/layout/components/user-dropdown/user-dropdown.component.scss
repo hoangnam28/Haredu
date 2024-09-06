@@ -1,0 +1,61 @@
+@import '../../../../../styles/variables';
+
+.user-dropdown {
+  background: #f5f7f9;
+
+  .user-dropdown-container {
+    .user-circle {
+      grid-area: left;
+    }
+
+    .role-name {
+      grid-area: top-right;
+      overflow: hidden;
+      font-weight: 600;
+      text-overflow: ellipsis;
+    }
+
+    .email {
+      grid-area: bottom-right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    display: grid;
+    grid-template-areas:
+      'left top-right'
+      'left bottom-right';
+    cursor: pointer;
+  }
+}
+
+.title {
+  display: inline-block;
+  line-height: 1.1 !important;
+  font-size: $font-16 !important;
+  color: $black;
+}
+
+.icon {
+  vertical-align: -0.5em !important;
+}
+
+.main-dropdown li ::ng-deep .ant-menu-title-content {
+  display: flex !important;
+  align-items: center !important;
+
+  .title {
+    display: inline-block;
+    line-height: 1.1 !important;
+    font-size: $font-16 !important;
+    color: $black;
+  }
+
+  .icon {
+    vertical-align: -0.5em !important;
+  }
+}
+
+.user-dropdown:hover {
+  background: #dbdddf;
+}

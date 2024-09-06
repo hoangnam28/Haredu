@@ -1,0 +1,137 @@
+<div class="flex justify-center mb-10">
+  <nz-card class="w-[80%] h-full" [nzBordered]="true">
+    <div class="flex justify-between" *ngIf="class">
+      <span class="default-title">Set up for class {{ class.name }}</span>
+      <span *ngIf="localSlot.length === formGroup.value.numberSlot"
+        ><button nz-button nzType="primary" (click)="saveChange()">Save changes</button></span
+      >
+    </div>
+    <nz-steps [nzCurrent]="currentStep" nzSize="small" class="mt-5 lg:mt-6">
+      <nz-step *ngFor="let step of steps" [nzTitle]="step"></nz-step>
+    </nz-steps>
+    <div class="flex mt-2">
+      <app-button
+        ngClass="font-semibold flex justify-center"
+        height="40px"
+        label="common.backward"
+        (click)="onBackStep()"
+      ></app-button>
+      <app-button
+        ngClass="font-semibold flex justify-center ml-2"
+        height="40px"
+        label="common.nextStep"
+        (click)="onNextStep()"
+      ></app-button>
+    </div>
+    <form nz-form [formGroup]="formGroup" nzLayout="vertical" class="mt-5" (submit)="onSubmit()">
+      <ng-container *ngIf="currentStep === 0">
+        <div class="flex gap-3">
+          <span class="text-error large-text-bold"> Note: </span>
+          <span class="flex flex-col gap-2">
+            <p class="large-text">{{ 'screens.users.setUpSlotMess5' | transloco }}</p>
+          </span>
+        </div>
+        <nz-form-item class="mt-2">
+          <nz-form-label nzFor="numberSlot">{{ 'input.placeholder.numberSlot' | transloco }}</nz-form-label>
+          <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+            <nz-input-group>
+              <input
+                id="numberSlot"
+                autofocus
+                nz-input
+                type="number"
+                formControlName="numberSlot"
+                (blur)="onBlur('numberSlot')"
+                placeholder="{{ 'input.label.numberSlot' | transloco }}"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      <ng-container *ngIf="currentStep === 1">
+        <div class="flex gap-3">
+          <span class="text-error large-text-bold"> Note: </span>
+          <span class="flex flex-col gap-2">
+            <p class="large-text">{{ 'screens.users.setUpSlotMess1' | transloco }}</p>
+            <p class="large-text">{{ 'screens.users.setUpSlotMess2' | transloco }}</p>
+            <p class="large-text">{{ 'screens.users.setUpSlotMess3' | transloco }}</p>
+            <p class="large-text">
+              {{
+                'screens.users.setUpSlotMess4'
+                  | transloco: { numberSlot: formGroup.value.numberSlot, week: weekCalculate }
+              }}
+            </p>
+          </span>
+        </div>
+
+        <div class="schedule-container">
+          <p class="large-text text-primary">{{ 'screens.users.nsc' | transloco }}: {{ localSlot.length }}</p>
+          <nz-table
+            #scheduleTable
+            [nzData]="currentWeek"
+            [nzBordered]="true"
+            [nzSize]="'middle'"
+            [nzFrontPagination]="false"
+            [nzShowPagination]="false"
+          >
+            <thead>
+              <tr>
+                <th></th>
+                <th *ngFor="let day of currentWeek" class="text-center border-b-2">
+                  <div class="border-b pb-2">{{ day | date: 'EEEE' | transloco }}</div>
+                  <div class="pt-2">{{ day | date: 'dd-MM' }}</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let slot of slots; let index = index">
+                <td class="w-[200px] truncate">Slot {{ index + 1 }} ({{ slot.startTime + ' - ' + slot.endTime }})</td>
+                <td *ngFor="let day of currentWeek" class="text-center w-[200px] truncate overflow-y-auto relative">
+                  <button
+                    *ngIf="getSlotForDay(day, slot) as currentSlot"
+                    nz-button
+                    nzType="dashed"
+                    class="w-full h-auto"
+                  >
+                    <div class="link flex flex-col" (click)="openEditModal(currentSlot, index)">
+                      <span>{{ currentSlot.classroomId.name }}</span>
+                      <span>{{ currentSlot.title }}</span>
+                    </div>
+                    <span
+                      *ngIf="!currentSlot._id"
+                      (click)="remove(day, slot)"
+                      class="absolute top-0 right-0"
+                      nz-icon
+                      nzType="close"
+                      nzTheme="outline"
+                    ></span>
+                  </button>
+                  <button
+                    *ngIf="!getSlotForDay(day, slot)"
+                    nz-button
+                    nzType="dashed"
+                    class="w-full"
+                    (click)="addSlot(day, slot)"
+                    [disabled]="isDisabled(day)"
+                  >
+                    <ng-container>
+                      <span nz-icon nzType="plus" nzTheme="outline"></span>
+                    </ng-container>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+          <div class="flex justify-end">
+            <button nz-button (click)="previousWeek()">Previous Week</button>
+            <button nz-button (click)="nextWeek()">Next Week</button>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </nz-card>
+</div>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

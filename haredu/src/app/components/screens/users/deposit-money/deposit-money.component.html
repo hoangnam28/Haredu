@@ -1,0 +1,14 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit()">
+  <nz-form-item>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input type="text" nz-input formControlName="amount" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button class="mr-2" type="submit" nz-button nzType="primary">Deposit</button>
+</form>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

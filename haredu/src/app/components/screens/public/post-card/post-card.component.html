@@ -1,0 +1,98 @@
+<nz-card>
+  <div class="flex">
+    <div class="flex cursor-pointer mt-5 items-center gap-2">
+      <div class="flex items-center justify-center">
+        <mat-icon class="w-10 h-10 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+      </div>
+
+      <div class="sm:flex sm:flex-col sm:items-start hidden mr-3">
+        <span class="font-semibold opacity-85"
+          >{{ post.user.name
+          }}<button class="ml-3 text-[10px] h-[24px] text-white bg-green-600" nz-button>
+            {{ [post.user.role] | memo: getRoleName }}
+          </button></span
+        >
+        <span class="opacity-70">{{ post.createdAt | date: 'HH:mm | dd/MM/yyyy' }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex">{{ post.content }}</div>
+  <div class="flex">
+    <div *ngFor="let img of post.images; let index = index">
+      <span class="img-container block h-[40vh] w-full" *ngIf="index === 0">
+        <img class="object-cover h-full w-full" [src]="img.url" />
+      </span>
+    </div>
+  </div>
+
+  <div class="p-4">
+    <div class="flex justify-between items-center border-b pb-2 mb-2">
+      <div class="flex space-x-4">
+        <button class="flex items-center space-x-1 text-gray-600 hover:text-gray-800">
+          <span nz-icon nzType="like" nzTheme="outline"></span>
+          <span>Like</span>
+        </button>
+        <button class="flex items-center space-x-1 text-gray-600 hover:text-gray-800">
+          <span nz-icon nzType="comment" nzTheme="outline"></span>
+          <span>Comment</span>
+        </button>
+        <button class="flex items-center space-x-1 text-gray-600 hover:text-gray-800">
+          <span nz-icon nzType="share-alt" nzTheme="outline"></span>
+          <span>Share</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mb-2">
+      <a href="#" class="text-blue-600 hover:underline">View more replies</a>
+    </div>
+
+    <div class="flex space-x-4">
+      <mat-icon class="w-10 h-10 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+      <div>
+        <div class="bg-gray-100 p-3 rounded-lg">
+          <div class="flex items-center mb-2">
+            <a href="#" class="text-blue-600 hover:underline font-semibold">Mộc Dương</a>
+            <span class="ml-2 text-gray-500">• Follow</span>
+          </div>
+          <p>Qua tuyet voi!</p>
+        </div>
+        <div class="flex items-center space-x-4 text-gray-500 text-sm mt-1">
+          <span>2 giờ</span>
+          <button class="hover:underline">Like</button>
+          <button class="hover:underline">Reply</button>
+          <button class="hover:underline">Share</button>
+          <span class="flex items-center space-x-1">
+            <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M3.172 10a4 4 0 015.656-5.656l1.586 1.586a1 1 0 001.414 0l1.586-1.586a4 4 0 015.656 5.656l-7 7a4 4 0 01-5.656 0l-7-7a4 4 0 010-5.656 1 1 0 011.414 1.414A2 2 0 005 6.586L9 10.586l4-4a2 2 0 112.828 2.828l-7 7a2 2 0 01-2.828 0l-7-7a2 2 0 010-2.828 4 4 0 015.656 0l1.586 1.586a1 1 0 001.414 0L8.586 4.414a4 4 0 015.656 0 4 4 0 010 5.656l-7 7a4 4 0 01-5.656 0l-7-7a4 4 0 010-5.656A4 4 0 013.172 10z"
+              />
+            </svg>
+            <span>15</span>
+          </span>
+          <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 12l-1.5-1.5 3-3 3 3L11 12V6H9v6z" />
+          </svg>
+          <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M4 10a6 6 0 1112 0A6 6 0 014 10zM10 0a10 10 0 100 20A10 10 0 0010 0z" />
+          </svg>
+        </div>
+
+        <div class="mt-2">
+          <a href="#" class="text-blue-600 hover:underline">View 1 reply</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4 flex space-x-4">
+      <img src="https://via.placeholder.com/40" alt="User Avatar" class="h-10 w-10 rounded-full" />
+      <div class="flex-1">
+        <input
+          type="text"
+          placeholder="Write a reply..."
+          class="w-full p-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+    </div>
+  </div>
+</nz-card>

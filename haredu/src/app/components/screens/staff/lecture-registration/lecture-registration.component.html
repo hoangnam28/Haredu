@@ -1,0 +1,29 @@
+<nz-card [nzTitle]="'screens.lecture.manage' | transloco">
+  <form nz-form [formGroup]="formGroup">
+    <div class="mt-2 flex">
+      <div class="w-[50%]"><app-date-picker></app-date-picker></div>
+    </div>
+  </form>
+  <app-table
+    #dataTable
+    [data]="tableData.data"
+    [pageSize]="tableData.pageSize"
+    [pageIndex]="tableData.pageIndex"
+    [totalItem]="tableData.totalItem"
+    [tableConfig]="tableConfig"
+    [height]="'500px'"
+    [isLoading]="isLoading"
+    (onSearch)="onSearch($event)"
+    [customCell]="{ registrationTime, action }"
+    externalClass="js-tb"
+    parentClass="inner-content"
+  ></app-table>
+</nz-card>
+
+<ng-template #registrationTime>
+  {{ fakeDate | date: 'yyyy-MM-dd' }}
+</ng-template>
+
+<ng-template #action>
+  <button nz-button (click)="openViewDetail()">{{ 'common.view' | transloco }}</button>
+</ng-template>

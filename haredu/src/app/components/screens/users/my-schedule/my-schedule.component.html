@@ -1,0 +1,45 @@
+<nz-card class="w-[80%] h-full" [nzBordered]="true">
+  <div>
+    <nz-table
+      #scheduleTable
+      [nzData]="currentWeek"
+      [nzBordered]="true"
+      [nzSize]="'middle'"
+      [nzFrontPagination]="false"
+      [nzShowPagination]="false"
+    >
+      <thead>
+        <tr>
+          <th></th>
+          <th *ngFor="let day of currentWeek" class="text-center border-b-2">
+            <div class="border-b pb-2">{{ day | date: 'EEEE' | transloco }}</div>
+            <div class="pt-2">{{ day | date: 'dd-MM' }}</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let slot of slots; let index = index">
+          <td class="w-[200px] truncate">Slot {{ index + 1 }} ({{ slot.startTime + ' - ' + slot.endTime }})</td>
+          <td *ngFor="let day of currentWeek" class="text-center w-[200px] truncate overflow-y-auto relative">
+            <button
+              *ngIf="getSlotForDay(day, slot) as currentSlot"
+              nz-button
+              nzType="dashed"
+              class="w-full h-auto"
+              (click)="viewSlotDetail(currentSlot._id)"
+            >
+              <div class="link flex flex-col" (click)="redirectToClassDetail(currentSlot.classroomId._id)">
+                <span>{{ currentSlot.classroomId.name }}</span>
+                <span>{{ currentSlot.title }}</span>
+              </div>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div class="flex justify-end">
+      <button nz-button (click)="previousWeek()">Previous Week</button>
+      <button nz-button (click)="nextWeek()">Next Week</button>
+    </div>
+  </div>
+</nz-card>

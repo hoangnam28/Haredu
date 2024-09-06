@@ -1,0 +1,50 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+  <nz-form-item>
+    <nz-form-label nzFor="money">{{ 'screens.users.enterWithdraw' | transloco }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input
+          autofocus
+          nz-input
+          formControlName="money"
+          (blur)="onBlur('money')"
+          placeholder="{{ 'screens.users.enterWithdraw' | transloco }}"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="password">{{ 'screens.auth.password' | transloco }}</nz-form-label>
+    <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+      <nz-input-group [nzSuffix]="passwordTemplate">
+        <input
+          id="password"
+          autofocus
+          nz-input
+          autocomplete="password"
+          [maxLength]="PASSWORD_MAX_LENGTH"
+          [type]="passwordVisible ? 'text' : 'password'"
+          formControlName="password"
+          (blur)="onBlur('password')"
+          placeholder="{{ 'form.placeholder.password' | transloco }}"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <app-button btnType="submit" [label]="'common.submit'"> </app-button>
+</form>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>
+
+<ng-template #passwordTemplate>
+  <span
+    nz-icon
+    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+    (click)="passwordVisible = !passwordVisible"
+    tabindex="1"
+    (keyup.enter)="passwordVisible = !passwordVisible"
+  ></span>
+</ng-template>

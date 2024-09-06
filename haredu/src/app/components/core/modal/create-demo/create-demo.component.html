@@ -1,0 +1,31 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+  <nz-form-item>
+    <nz-form-label nzFor="phone">Phone</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input nz-input formControlName="phone" (blur)="onBlur('phone')" placeholder="Enter phone" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="phone">Name</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input nz-input formControlName="name" (blur)="onBlur('name')" placeholder="Enter name" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="address">Address</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input nz-input formControlName="address" (blur)="onBlur('address')" placeholder="Enter address" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <app-button btnType="submit" [label]="data.isCreated ? 'common.create' : 'common.update'"> </app-button>
+</form>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

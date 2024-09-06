@@ -1,0 +1,30 @@
+<nz-card class="card-overview rounded-md max-w-full" [nzTitle]="'screens.demo.title' | transloco" [nzExtra]="addUser">
+  <div class="flex">
+    <form nz-form [formGroup]="formGroup" nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="search" placeholder="{{ 'common.search' | transloco }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+  <app-table
+    #dataTable
+    [data]="tableData.data"
+    [pageSize]="tableData.pageSize"
+    [pageIndex]="tableData.pageIndex"
+    [totalItem]="tableData.totalItem"
+    [tableConfig]="tableConfig"
+    [height]="'500px'"
+    [isLoading]="isLoading"
+    (onSearch)="onSearch($event)"
+    externalClass="js-tb"
+    parentClass="inner-content"
+  ></app-table>
+</nz-card>
+
+<ng-template #addUser>
+  <app-button type="primary" label="screens.demo.addNewUser" ngClass="ml-2" icon="plus"></app-button>
+</ng-template>

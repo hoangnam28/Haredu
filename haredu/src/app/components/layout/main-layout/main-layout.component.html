@@ -1,0 +1,41 @@
+<nz-layout class="main-layout" [ngClass]="{ 'toogle-sidebar': isCollapsed }" [class.hidden-sidebar]="hideSidebar">
+  <nz-sider>
+    <span id="logo" class="cursor-pointer" (click)="redirectLinkLogo()">
+      <img [src]="logo.images" class="logo-image" />
+      <span class="pl-2 logo-name" [class.logo-hidden]="isCollapsed" [class.logo-show]="!isCollapsed">{{
+        logo.name
+      }}</span>
+    </span>
+    <app-menu
+      [data]="menuItems"
+      class="main-nav relative"
+      [disabled]="isFirstTimeLogin"
+      [isCollapsed]="isCollapsed"
+    ></app-menu>
+    <div
+      class="absolute top-[50%] right-[-5px] translate-x-[72%] translate-y-[50%] bg-white rounded-r-lg cursor-pointer z-10"
+      (click)="toggleSidebar()"
+    >
+      <span class="trigger p-0" nz-icon [nzType]="isCollapsed ? 'right' : 'left'" nzTheme="outline"></span>
+    </div>
+    <div
+      class="user-dropdown bottom-[30px] right-5 left-5 absolute rounded-xl flex justify-center p-2"
+      nz-button
+      (click)="logout()"
+    >
+      <mat-icon [class.mr-1]="!isCollapsed">exit_to_app</mat-icon>
+      <span [ngClass]="{ hidden: isCollapsed }">{{ 'common.logout' | transloco }}</span>
+    </div>
+  </nz-sider>
+  <nz-layout class="relative">
+    <app-navbar [user]="user"></app-navbar>
+    <nz-content class="relative pt-16 pb-10">
+      <div class="inner-content">
+        <div class="container">
+          <app-bread-crumb></app-bread-crumb>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

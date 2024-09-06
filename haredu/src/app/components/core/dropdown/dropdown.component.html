@@ -1,0 +1,31 @@
+<button
+  nz-button
+  class="flex items-center min-h-[40px]"
+  [ngClass]="ngClass"
+  nz-dropdown
+  [nzClickHide]="type === 'single' ? true : false"
+  [nzTrigger]="trigger"
+  [nzDropdownMenu]="menu"
+>
+  {{ title | transloco }} <span nz-icon nzType="down"></span>
+</button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu class="min-w-36">
+    <li nz-menu-item *ngFor="let item of data.items; let i = index">
+      <span *ngIf="data.isShowCheckbox; else notShowCheckBox">
+        <span nz-checkbox [(ngModel)]="item.checked" (ngModelChange)="onSelect(item, i)"
+          >{{ item.title | transloco }}
+        </span>
+      </span>
+      <ng-template #notShowCheckBox>
+        <span (click)="onSelect(item, i)">
+          {{ item.title | transloco }}
+        </span>
+      </ng-template>
+    </li>
+    <ng-container *ngIf="type === 'multiple'">
+      <li nz-menu-divider></li>
+      <li nz-menu-item class="flex justify-center" (click)="onClearAll()">{{ 'common.clearAll' | transloco }}</li>
+    </ng-container>
+  </ul>
+</nz-dropdown-menu>

@@ -1,0 +1,14 @@
+<ng-template #toast let-data="data">
+  <div class="flex justify-start gap-2" [ngClass]="getClass(data.type)">
+    <div class="min-w-[24px]">
+      <mat-icon [svgIcon]="data.svgIcon"></mat-icon>
+    </div>
+    <div class="text-message max-w-[428px]">
+      <span class="whitespace-pre-wrap">{{ data.message }}</span>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #close>
+  <mat-icon svgIcon="close-toast"></mat-icon>
+</ng-template>

@@ -1,0 +1,25 @@
+@import './variables';
+
+.text-primary {
+  color: $primary;
+}
+
+.text-success {
+  color: $green;
+}
+
+.text-error {
+  color: $red;
+}
+
+.text-warning {
+  color: $orange;
+}
+
+.card-bg-primary {
+  background-color: rgba($primary, 0.05);
+}
+
+.caption {
+  font-weight: 600;
+}

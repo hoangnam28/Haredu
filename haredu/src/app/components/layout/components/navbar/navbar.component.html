@@ -1,0 +1,122 @@
+<nz-header class="absolute top-0 left-0 right-0 z-50">
+  <div class="container rounded-md px-6">
+    <div class="flex justify-between w-full h-14">
+      <!-- Left side -->
+      <div class="flex items-center">
+        <div class="search-btn h-full flex items-center">
+          <div class="inner flex items-center cursor-pointer">
+            <mat-icon class="submenu-icon" svgIcon="search"></mat-icon>
+            <div class="h-full m-0 flex items-center ml-2" nz-typography nzType="secondary">
+              <div class="mr-1">{{ 'common.search' | transloco }}</div>
+              <div class="short-cut border border-gray-200 p-1 rounded-lg flex h-fit text-xs">
+                <div class="icon">⌘</div>
+                K
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/ Left side -->
+
+      <!-- Right side -->
+      <div class="flex items-center gap-4">
+        <!-- Language dropdown -->
+        <div
+          class="flex cursor-pointer"
+          nz-dropdown
+          nzTrigger="click"
+          [nzDropdownMenu]="language"
+          nzPlacement="bottomRight"
+        >
+          <div class="flex items-center justify-center">
+            <img src="assets/images/flag-{{ currentLanguage }}.png" />
+          </div>
+        </div>
+        <nz-dropdown-menu #language="nzDropdownMenu">
+          <ul nz-menu>
+            <div class="px-2">
+              <li
+                [class.active]="currentLanguage === 'vi'"
+                class="flex-items"
+                nz-menu-item
+                (click)="handleChangeLang('vi')"
+              >
+                <img width="24px" height="24px" src="assets/images/flag-vi.png" />
+                {{ 'common.vietnamese' | transloco }}
+              </li>
+            </div>
+            <div class="px-2">
+              <li
+                [class.active]="currentLanguage === 'en'"
+                class="flex-items"
+                nz-menu-item
+                (click)="handleChangeLang('en')"
+              >
+                <img width="24px" height="24px" src="assets/images/flag-en.png" />
+                {{ 'common.english' | transloco }}
+              </li>
+            </div>
+          </ul>
+        </nz-dropdown-menu>
+        <!--/ Language dropdown -->
+        <nz-badge [nzCount]="notifyCount" class="mr-5">
+          <span
+            class="text-[24px] cursor-pointer"
+            nz-icon
+            nzType="bell"
+            nzTheme="fill"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="notification"
+            (click)="viewAllNotify()"
+          ></span>
+        </nz-badge>
+        <nz-dropdown-menu #notification="nzDropdownMenu">
+          <ul nz-menu *ngIf="notifys.length > 0; else noData">
+            <div class="px-2" *ngFor="let no of notifys">
+              <li nz-menu-item (click)="redirect(no.notifyId.link ?? '')">
+                <span class="font-semibold mr-2">{{ no.notifyId.owner.name }}</span
+                >{{ no.notifyId.title }}
+              </li>
+            </div>
+          </ul>
+          <ng-template #noData>
+            <ul nz-menu>
+              <div class="px-2">No Data To DISPLAY</div>
+            </ul>
+          </ng-template>
+        </nz-dropdown-menu>
+
+        <!-- User dropdown -->
+        <div class="flex cursor-pointer" nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+          <div class="sm:flex sm:flex-col sm:items-end hidden mr-3">
+            <span class="font-semibold opacity-85">{{ user.name }}</span>
+            <span class="opacity-70">{{ roleName }}</span>
+          </div>
+          <div class="flex items-center justify-center">
+            <mat-icon class="w-8 h-8 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+          </div>
+        </div>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <div class="px-2">
+              <li
+                [class.active]="currentUrl === '/auth/account-setting'"
+                nz-menu-item
+                (click)="redirect('users/profile')"
+              >
+                {{ 'menubar.accountSetting' | transloco }}
+              </li>
+            </div>
+            <nz-divider class="my-2"></nz-divider>
+            <div class="px-2" (click)="logout()">
+              <li nz-menu-item>{{ 'common.logout' | transloco }}</li>
+            </div>
+          </ul>
+        </nz-dropdown-menu>
+        <!--/ User dropdown -->
+      </div>
+      <!--/ Right side -->
+    </div>
+  </div>
+</nz-header>

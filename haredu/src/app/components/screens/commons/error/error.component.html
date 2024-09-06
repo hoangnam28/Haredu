@@ -1,0 +1,21 @@
+<div class="misc-wrapper">
+  <div class="brand-logo cursor-pointer" (click)="redirecToHome()">
+    <img [src]="logo.images" alt="brand-logo" class="logo-image" />
+    <h2 class="logo-name text-primary ml-3">{{ logo.name }}</h2>
+  </div>
+  <div class="misc-inner p-2 p-sm-3">
+    <div class="w-100 text-center">
+      <p class="mb-1 text-6xl font-bold">{{ 'screens.errorPage.pageNotFound' | transloco }}</p>
+      <p class="mb-2 large-title">{{ 'screens.errorPage.urlNotFound' | transloco }}</p>
+      <p
+        class="mb-2 large-title text-blue-500 cursor-pointer hover:text-blue-700"
+        (click)="redirecToHome()"
+      >
+        {{ 'screens.errorPage.backToDashboard' | transloco }}
+      </p>
+      <div class="flex justify-center">
+        <img [src]="'assets/svg/error.svg'" alt="Error page" />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+button {
+  min-width: 100px;
+
+  &:focus-visible {
+    outline: 1px solid black;
+  }
+}
+
+mat-icon {
+  width: 60px;
+  height: 60px;
+}

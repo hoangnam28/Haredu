@@ -1,0 +1,35 @@
+.ng-tns-c4199843130-6 {
+  .tox-tinymce {
+    border: 1px solid $ant-input-border-color;
+    border-radius: $base-radius;
+  }
+
+  .tox .tox-edit-area::before {
+    border: 1px solid $primary;
+    border-radius: 2px;
+  }
+
+  .tox .tox-mbtn--active {
+    background-color: rgba($primary, 0.6);
+    color: $white;
+  }
+
+  .tox .tox-mbtn--active,
+  .tox .tox-mbtn:not(:disabled).tox-mbtn--active:focus {
+    background-color: rgba($primary, 0.6);
+    color: $white;
+  }
+
+  .tox .tox-mbtn:focus:not(:disabled)::after {
+    box-shadow: unset;
+  }
+
+  .tox-statusbar__right-container {
+    display: none !important;
+  }
+}
+
+.tox .tox-collection--list .tox-collection__item--active {
+  background-color: rgba($primary, 0.8) !important;
+  color: #000;
+}

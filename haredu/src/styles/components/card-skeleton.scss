@@ -1,0 +1,10 @@
+@import '../variables';
+
+.overide-container.ant-skeleton {
+  width: 100%;
+
+  .ant-skeleton-button {
+    width: 100%;
+    height: $product-card-image-skeleton-height;
+  }
+}

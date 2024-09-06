@@ -1,0 +1,84 @@
+<nz-alert
+  *ngIf="!user?.isVerified"
+  class="mb-5"
+  nzType="info"
+  nzMessage="Your account has not been verified yet."
+  [nzDescription]="(user.reasonNotVerified ?? '') + ' Update your account for upload your video'"
+  nzShowIcon
+></nz-alert>
+
+<div *ngIf="user?.isVerified" class="flex justify-center">
+  <nz-table class="w-[100%]" #filterTable [nzData]="listOfData" nzTableLayout="auto">
+    <thead>
+      <tr>
+        <th
+          *ngFor="let column of listOfColumns; trackBy: trackByName"
+          [(nzSortOrder)]="column.sortOrder"
+          [nzSortFn]="column.sortFn"
+          [nzFilters]="column.listOfFilter"
+          [nzFilterFn]="column.filterFn"
+        >
+          {{ column.name }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of filterTable.data">
+        <td class="video-item">
+          <img [src]="data.thumbnail" alt="" style="width: 110px; height: 70px" /> {{ data.name }}
+        </td>
+        <td>{{ data.categoryName }}</td>
+        <td>{{ data.createTime }}</td>
+        <td>{{ data.view }}</td>
+        <td>
+          <a (click)="onOpenVideoUpdateComponent(data)">
+            <span
+              nzTooltipTitle="Edit"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              class="mr-5"
+              nz-icon
+              nzType="edit"
+              nzTheme="twotone"
+            ></span>
+          </a>
+          <a (click)="onDeleteVideo(data.id, data.name)">
+            <span
+              nzTooltipTitle="Delete"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              class="mr-5"
+              nz-icon
+              nzType="delete"
+              nzTheme="twotone"
+              [nzTwotoneColor]="'#eb2f96'"
+            ></span>
+          </a>
+          <a [href]="data.href" target="_blank">
+            <span
+              nzTooltipTitle="View public video"
+              nzTooltipPlacement="top"
+              nz-tooltip
+              nz-icon
+              nzType="play-circle"
+              nzTheme="twotone"
+              [nzTwotoneColor]="'#52c41a'"
+            ></span>
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td class="add-video-td" colspan="5">
+          <nz-upload
+            [nzAction]="serverUrl + 'api/videos/create'"
+            [nzHeaders]="{ authorization: 'authorization-text' }"
+            (nzChange)="handleChange($event)"
+          >
+            <div><span nz-icon nzType="cloud-upload" nzTheme="outline"></span>UPLOAD VIDEO</div>
+          </nz-upload>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <!-- </nz-card> -->
+</div>

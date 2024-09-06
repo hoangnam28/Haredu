@@ -1,0 +1,52 @@
+<div class="flex justify-center" *ngIf="currentRole === userRole.TUTOR">
+  <nz-card class="w-[100%] h-full" [nzBordered]="true">
+    <div class="default-title">{{ 'screens.users.wallet' | transloco }}</div>
+    <div class="flex mt-5 items-center">
+      <span class="large-text-bold mr-2">{{ 'screens.users.accountBalance' | transloco }}: </span>
+      <span>{{ balance() | formatBalance }}</span>
+    </div>
+    <div>
+      <div class="flex gap-6 mt-2">
+        <button *ngIf="!bank()?.accountName" nz-button nzType="primary" (click)="openBankModal()">
+          {{ 'screens.users.addBank' | transloco }}
+        </button>
+        <button *ngIf="!!bank()?.accountName" nz-button nzType="primary" (click)="openBankModal()">
+          {{ 'screens.users.updateBank' | transloco }}
+        </button>
+        <button nz-button nzType="primary" (click)="openWithdrawModal()">
+          {{ 'screens.users.withdrawMoney' | transloco }}
+        </button>
+      </div>
+    </div>
+    <div class="bank-card" *ngIf="bank()">
+      <div class="container mt-5">
+        <header>
+          <span class="logo">
+            <img [src]="bank().logo" alt="" />
+            <h5>{{ bank().shortName }}</h5>
+          </span>
+          <img [src]="serverUrl + 'images/chip.png'" alt="" class="chip" />
+        </header>
+        <div class="card-details">
+          <div class="name-number">
+            <h6>Card Number</h6>
+            <h5 class="number">{{ bank().accountNumber }}</h5>
+            <h5 class="name">{{ bank().accountName }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+</div>
+<div class="flex justify-center" *ngIf="currentRole === userRole.STUDENT">
+  <nz-card class="w-[100%] h-full" [nzBordered]="true">
+    <div class="flex justify-between">
+      <div class="default-title">{{ 'screens.users.wallet' | transloco }}</div>
+      <button nz-button nzType="primary" (click)="deposit()">Deposit money into your account</button>
+    </div>
+    <div class="flex mt-5v items-center">
+      <span class="large-text-bold mr-2">{{ 'screens.users.accountBalance' | transloco }}: </span>
+      <span class="large-text">VND {{ balance() | formatBalance }}</span>
+    </div>
+  </nz-card>
+</div>

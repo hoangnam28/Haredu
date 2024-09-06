@@ -1,0 +1,86 @@
+<!-- Side Bar -->
+
+<div class="sidebar">
+  <div class="shortcut-links">
+    <div class="example-input">
+      <nz-input-group nzSize="large" [nzSuffix]="suffixIcon">
+        <input
+          placeholder="input here"
+          nz-input
+          [(ngModel)]="inputValue"
+          (ngModelChange)="onChange($event)"
+          [nzAutocomplete]="auto"
+          (keydown.enter)="onSearch()"
+        />
+      </nz-input-group>
+      <ng-template #suffixIcon>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+      <nz-autocomplete #auto [compareWith]="compareFun" [autofocus]="false">
+        <ng-container *ngFor="let option of renderOptionsSearch.slice().reverse().slice(0, 6); let i = index">
+          <nz-auto-option [nzValue]="option" [nzLabel]="option">
+            {{ option }}
+          </nz-auto-option>
+        </ng-container>
+      </nz-autocomplete>
+    </div>
+    <div class="my-3">
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a category" [(ngModel)]="selectedCategoty">
+        <nz-option *ngFor="let item of listCategory" [nzLabel]="item" [nzValue]="item"></nz-option>
+      </nz-select>
+    </div>
+    <hr />
+  </div>
+  <div class="subscribed-list">
+    <h3>SUBSCRIPTIONS</h3>
+    <a href="#"
+      ><img [src]="serverUrl + 'avatar/avatar-placehoder.webp'" />
+      <p>Jack &bull;</p></a
+    >
+    <a href="#"
+      ><img [src]="serverUrl + 'avatar/avatar-placehoder.webp'" />
+      <p>simon</p></a
+    >
+    <a href="#"
+      ><img [src]="serverUrl + 'avatar/avatar-placehoder.webp'" />
+      <p>Tom &bull;</p></a
+    >
+    <a href="#"
+      ><img [src]="serverUrl + 'avatar/avatar-placehoder.webp'" />
+      <p>Megan Fox &bull;</p></a
+    >
+    <a href="#"
+      ><img [src]="serverUrl + 'avatar/avatar-placehoder.webp'" />
+      <p>Cameron Green</p></a
+    >
+  </div>
+</div>
+
+<!-- Main Body -->
+<div class="container">
+  <div class="banner">
+    <img src="./images/banner.png" alt="" srcset="" />
+  </div>
+  <div class="list-container">
+    <div *ngFor="let item of listVideoRender" class="vid-list">
+      <a [routerLink]="['/videos', item._id]">
+        <div class="img-container"><img [src]="serverUrl + item.thumbnail" class="thumbnail" /></div
+      ></a>
+      <div class="flex-div">
+        <a [routerLink]="['/users/profile', item.userId?.slug]">
+          <img [src]="serverUrl + item.userId?.avatar" />
+        </a>
+        <div class="vid-info">
+          <div class="name-video-container">
+            <a [routerLink]="['/videos', item._id]">{{ item?.name }}</a>
+          </div>
+          <div class="tags">
+            <a>#{{ item?.teachingFiledId.name }}</a>
+          </div>
+          <p>{{ item?.userId?.name }}</p>
+          <p>{{ item?.view }} Views</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

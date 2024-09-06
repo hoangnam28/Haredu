@@ -1,0 +1,27 @@
+<nz-card class="product-card-container" nz-col>
+  <div class="image">
+    <img [alt]="desiredCourse.image" [src]="desiredCourse.image" />
+  </div>
+  <div class="flex">
+    <div class="flex cursor-pointer mt-5 items-center gap-2">
+      <div class="flex items-center justify-center">
+        <mat-icon class="w-14 h-14 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+      </div>
+      <span class="font-semibold opacity-85">{{ desiredCourse.user.name }}</span>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-1 mt-2">
+    <nz-tag *ngFor="let filed of desiredCourse.teachingFileds">{{ filed.name }}</nz-tag>
+  </div>
+  <div
+    class="product-name-container sm:h-[22vh] sm:max-h-[22vh] xl:h-[12vh] xl:max-h-[12vh]"
+    nz-tooltip
+    [nzTooltipTitle]="desiredCourse.className"
+  >
+    <div class="product-name my-5 text-xl" nz-typography>{{ desiredCourse.className | transloco }}</div>
+  </div>
+  <div class="mt-2">
+    <strong class="text-xl">{{ 'common.timeStart' | transloco }}</strong
+    ><span class="text-xl">: {{ desiredCourse.timeStart | date: 'dd/MM/yyyy' }}</span>
+  </div>
+</nz-card>

@@ -1,0 +1,49 @@
+@import '../../../../styles/variables.scss';
+
+.main-nav {
+  .menu-item {
+    color: inherit;
+    color: $gray-600;
+  }
+
+  .ant-menu-item-selected,
+  .ant-menu-submenu-title-selected {
+    color: inherit !important;
+    background-color: transparent !important;
+  }
+
+  .menu-item-active {
+    color: $sidebar-active-color !important;
+    background-color: $sidebar-active-background !important;
+  }
+
+  .submenu-icon {
+    vertical-align: -0.5em;
+  }
+
+  .menu-title {
+    display: inline-block;
+    line-height: 1.1;
+    font-size: $font-16;
+  }
+
+  .ant-menu-item-disabled {
+    &:hover {
+      color: $text-shadow !important;
+      background: 0 0 !important;
+    }
+  }
+
+  ::ng-deep .ant-menu-inline.ant-menu-root .ant-menu-item > .ant-menu-title-content {
+    overflow: unset;
+  }
+}
+
+.menu-disabled {
+  li,
+  li * {
+    color: $text-shadow !important;
+    background: 0 0 !important;
+    cursor: not-allowed !important;
+  }
+}

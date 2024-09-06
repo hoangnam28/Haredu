@@ -1,0 +1,32 @@
+<div class="container mx-auto mt-5">
+  <section class="mission-section bg-gray-100 py-12">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+      <p class="text-lg">
+        Our mission is to provide the best services to our customers while maintaining high standards of quality and
+        integrity.
+      </p>
+    </div>
+  </section>
+
+  <section class="policies-section py-12">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4">Our Policies</h2>
+      <p class="text-lg">
+        We are committed to maintaining transparency and accountability in all our policies. Our policies are designed
+        to ensure fairness and equality.
+      </p>
+    </div>
+  </section>
+
+  <section class="testimonials-section bg-gray-100 py-12">
+    <div class="container mx-auto text-center">
+      <h2 class="text-3xl font-bold mb-4">Testimonials</h2>
+      <nz-carousel>
+        <div nz-carousel-content *ngFor="let testimonial of testimonials">
+          <strong class="text-lg">{{ testimonial }}</strong>
+        </div>
+      </nz-carousel>
+    </div>
+  </section>
+</div>

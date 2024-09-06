@@ -1,0 +1,192 @@
+<nz-alert
+  *ngIf="dataScreen?.role === 'TUTOR' && !dataScreen?.isVerified"
+  class="mb-5"
+  nzType="info"
+  nzMessage="Your account has not been verified yet."
+  [nzDescription]="dataScreen.reasonNotVerified"
+  nzShowIcon
+></nz-alert>
+<div class="flex justify-center">
+  <nz-card class="w-[100%] h-full" [nzBordered]="true">
+    <div class="flex justify-center default-title">{{ 'screens.users.myProfile' | transloco }}</div>
+    <form nz-form [formGroup]="formGroup" nzLayout="vertical" class="mt-5">
+      <div class="flex">
+        <nz-form-item style="width: auto">
+          <nz-form-control [nzErrorTip]="error">
+            <nz-upload
+              [nzDisabled]="dataScreen?.role === 'TUTOR' && dataScreen?.isVerified"
+              class="avatar-uploader"
+              [nzAction]="serverUrl + 'api/user/uploadAvatar'"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)"
+            >
+              <ng-container *ngIf="!formGroup.value.avatar">
+                <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+                <div class="ant-upload-text">Upload</div>
+              </ng-container>
+              <img
+                class="img-avatar"
+                *ngIf="formGroup.value.avatar"
+                [src]="formGroup.value.avatar"
+                style="width: 100%; height: 100%"
+              />
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+        <div>
+          <h1 class="text-3xl">{{ formGroup.value.name }}</h1>
+          <h1 class="text-xl">{{ formGroup.value.email }}</h1>
+          <div class="flex teaching-fileds-list">
+            <p *ngFor="let item of teachingFileds">{{ item }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex lg:flex-row flex-col justify-between">
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="name">{{ 'common.name' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-input-group>
+              <input
+                id="name"
+                name="name"
+                type="name"
+                nz-input
+                formControlName="name"
+                (blur)="onBlur('name')"
+                placeholder="{{ 'input.placeholder.name' | transloco }}"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="slug">{{ 'screens.users.slug' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-input-group>
+              <input
+                id="slug"
+                name="slug"
+                type="text"
+                nz-input
+                formControlName="slug"
+                (blur)="onBlur('slug')"
+                placeholder="{{ 'input.placeholder.slug' | transloco }}"
+              />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="flex lg:flex-row flex-col justify-between">
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="gender">{{ 'screens.users.gender' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-select (blur)="onBlur('type')" formControlName="gender">
+              <nz-option *ngFor="let gender of genders" [nzValue]="gender.value" [nzLabel]="gender.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="dayOfBirth">{{ 'screens.users.dayOfBirth' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-date-picker formControlName="dob" class="w-full"></nz-date-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div *ngIf="this.user.role === 'TUTOR'" class="flex lg:flex-row flex-col justify-between">
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="slug">Front of the citizen ID card</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-upload
+              [nzDisabled]="dataScreen?.role === 'TUTOR' && dataScreen?.isVerified"
+              class="cccd-uploader"
+              [nzAction]="serverUrl + 'api/user/upload-cccd/f'"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)"
+            >
+              <ng-container *ngIf="!formGroup.value.identityCardFront">
+                <div class="ant-upload-text">Upload</div>
+              </ng-container>
+              <img
+                class=""
+                *ngIf="formGroup.value.identityCardFront"
+                [src]="formGroup.value.identityCardFront"
+                style="width: 100%; height: 100%"
+              />
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="slug">Back of the citizen ID card</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-upload
+              [nzDisabled]="dataScreen?.role === 'TUTOR' && dataScreen?.isVerified"
+              class="cccd-uploader"
+              [nzAction]="serverUrl + 'api/user/upload-cccd/b'"
+              nzListType="picture-card"
+              [nzShowUploadList]="false"
+              [nzBeforeUpload]="beforeUpload"
+              (nzChange)="handleChange($event)"
+            >
+              <ng-container *ngIf="!formGroup.value.identityCardBack">
+                <div class="ant-upload-text">Upload</div>
+              </ng-container>
+              <img
+                class=""
+                *ngIf="formGroup.value.identityCardBack"
+                [src]="formGroup.value.identityCardBack"
+                style="width: 100%; height: 100%"
+              />
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div *ngIf="this.user.role === 'TUTOR'" class="flex lg:flex-row flex-col justify-between">
+        <nz-form-item class="lg:w-[49%]">
+          <nz-form-label nzFor="slug">{{ 'screens.users.uploadCv' | transloco }}</nz-form-label>
+          <nz-form-control [nzErrorTip]="error">
+            <nz-upload
+              nzType="drag"
+              [nzFileList]="fileList"
+              [nzMultiple]="false"
+              [nzAction]="serverUrl + 'api/user/uploadCV'"
+              (nzChange)="handleChange($event)"
+              [nzShowUploadList]="true"
+            >
+              <p class="ant-upload-drag-icon">
+                <span nz-icon nzType="inbox"></span>
+              </p>
+              <p class="ant-upload-text">{{ 'screens.users.uploadCv' | transloco }}</p>
+              <p *ngIf="cvPath === serverUrl" class="ant-upload-hint">Hiện chưa có CV Vui lòng upload</p>
+              <p *ngIf="cvPath !== serverUrl" class="ant-upload-hint">Bạn có thể tải để xem CV</p>
+            </nz-upload>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="flex gap-6">
+        <button (click)="onButtonClicSave()" nz-button nzType="primary">
+          {{ 'common.save' | transloco }}
+        </button>
+        <button (click)="onButtonClickDiscard()" nz-button nzType="primary" nzDanger>
+          {{ 'button.discard' | transloco }}
+        </button>
+        <button
+          *ngIf="this.user.role === 'TUTOR'"
+          (click)="onButtonClickDownloadCv()"
+          [disabled]="cvPath === serverUrl"
+          nz-button
+          nzType="primary"
+        >
+          {{ 'screens.users.downloadCv' | transloco }}
+        </button>
+      </div>
+    </form>
+  </nz-card>
+</div>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

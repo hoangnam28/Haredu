@@ -1,0 +1,24 @@
+@import '../../../../styles/variables';
+
+.app-button {
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 16px;
+
+  .label {
+    padding: 0px 3px;
+    line-height: 1.1 !important;
+    font-weight: $default-title-weight;
+  }
+
+  mat-icon {
+    max-height: 20px;
+    max-width: 20px;
+
+    svg {
+      transform: scale(1.1);
+    }
+  }
+}

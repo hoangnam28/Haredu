@@ -1,0 +1,32 @@
+<nz-card class="product-card-container h-full" nz-col (click)="redirectToClassroom(desiredCourse._id)">
+  <div class="image">
+    <img [alt]="desiredCourse.banner" [src]="serverUrl + desiredCourse.banner?.imageUrl" />
+  </div>
+  <div class="flex">
+    <div class="flex cursor-pointer mt-2 items-center gap-2">
+      <div class="flex items-center justify-center">
+        <mat-icon class="w-8 h-8 opacity-70" [svgIcon]="'user-circle'"></mat-icon>
+      </div>
+      <span class="font-semibold opacity-85">{{ desiredCourse.lecture.name }}</span>
+    </div>
+  </div>
+  <div class="flex flex-wrap gap-1 mt-2 sm:h-[6vh] sm:max-h-[6vh] xl:h-[4vh] xl:max-h-[4vh]">
+    <nz-tag class="flex items-center" *ngFor="let filed of desiredCourse.teachFileds">{{ filed.name }}</nz-tag>
+  </div>
+  <div
+    class="product-name-container sm:h-[12vh] sm:max-h-[12vh] xl:h-[6vh] xl:max-h-[6vh]"
+    nz-tooltip
+    [nzTooltipTitle]="desiredCourse.name"
+  >
+    <div class="product-name my-5 text-xl" nz-typography>{{ desiredCourse.name | transloco }}</div>
+  </div>
+  <div class="mt-2">
+    <strong class="text-xl">Price: {{ desiredCourse.price | formatBalance }} (VND)</strong>
+  </div>
+  <div class="mt-2">
+    <strong class="text-xl">{{ 'common.registrationTime' | transloco }}</strong
+    ><span class="text-xl"
+      >: {{ desiredCourse.startTime | date: 'dd/MM/yyyy' }} - {{ desiredCourse.endTime | date: 'dd/MM/yyyy' }}</span
+    >
+  </div>
+</nz-card>

@@ -1,0 +1,20 @@
+<div class="h-full">
+  <app-header [user]="user"></app-header>
+  <nz-layout class="profile-layout">
+    <nz-sider>
+      <app-menu
+        [data]="menuItems"
+        class="main-nav relative"
+        [disabled]="isFirstTimeLogin"
+        [isCollapsed]="isCollapsed"
+      ></app-menu>
+    </nz-sider>
+    <nz-content class="relative">
+      <div class="inner-content">
+        <div class="container h-full">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</div>

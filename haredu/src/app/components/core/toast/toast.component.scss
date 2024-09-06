@@ -1,0 +1,56 @@
+@import '../../../../styles//variables.scss';
+
+::ng-deep .ant-notification.ant-notification-top {
+  .ant-notification-notice,
+  .ant-notification-notice-closable {
+    min-width: 500px;
+    width: 500px;
+    max-width: 500px;
+    padding: 8px;
+    border-radius: 6px;
+
+    .ant-notification-notice-close {
+      top: 8px;
+      right: 8px;
+
+      .ant-notification-notice-close-x mat-icon {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .ant-notification-notice:has(.has-success),
+  .ant-notification-notice-closable:has(.has-success) {
+    color: $toast-success-color;
+    border: 1px solid $toast-success-color;
+    background: $toast-success-bg-color;
+  }
+
+  .ant-notification-notice:has(.has-error),
+  .ant-notification-notice-closable:has(.has-error) {
+    color: $toast-error-color;
+    border: 1px solid $toast-error-color;
+    background: $toast-error-bg-color;
+  }
+
+  .ant-notification-notice:has(.has-warning),
+  .ant-notification-notice-closable:has(.has-warning) {
+    color: $toast-warning-color;
+    border: 1px solid $toast-warning-color;
+    background: $toast-warning-bg-color;
+  }
+}
+
+::ng-deep .has {
+  &-success,
+  &-error,
+  &-warning {
+    .text-message,
+    & + a,
+    & + a:hover {
+      font-size: $font-14;
+      color: inherit;
+    }
+  }
+}

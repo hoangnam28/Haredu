@@ -1,0 +1,20 @@
+<nz-card [nzTitle]="'screens.lecture.update' | transloco">
+  <nz-table>
+    <thead>
+      <tr>
+        <th>Create At</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tableData">
+        <td>{{ item.userId.createdAt | date: 'dd-MM-yyyy hh:mm' }}</td>
+        <td>{{ item.userId.email }}</td>
+        <td>{{ item.userId.name }}</td>
+        <td><button (click)="openViewDetail(item._id)" nz-button nzType="primary">View Detail</button></td>
+      </tr>
+    </tbody>
+  </nz-table>
+</nz-card>

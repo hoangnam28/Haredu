@@ -1,0 +1,40 @@
+@import '../variables';
+
+.ant-pagination {
+  .ng-star-inserted {
+    li {
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: $base-radius;
+      }
+    }
+
+    .ant-pagination-item {
+      border-radius: $base-radius;
+
+      a {
+        height: 100%;
+        transition: all ease-in 0.2s;
+      }
+    }
+
+    .ant-pagination-item-active {
+      a {
+        color: $white;
+        background-color: $primary;
+      }
+    }
+
+    .ant-pagination-jump-prev,
+    .ant-pagination-jump-next {
+      .ant-pagination-item-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      }
+    }
+  }
+}

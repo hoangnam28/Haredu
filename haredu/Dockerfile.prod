@@ -1,0 +1,21 @@
+FROM node:20-alpine AS prod
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install -g @angular/cli
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build:prod
+
+FROM nginx:alpine AS nginx
+
+COPY nginx-prod.conf  /etc/nginx/conf.d/default.conf
+COPY src/ssl/haredu /etc/ssl/haredu/
+COPY --from=prod /usr/src/app/dist/haredu-system-front-end/ /usr/share/nginx/html
+
+EXPOSE 80

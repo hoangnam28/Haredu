@@ -1,0 +1,275 @@
+<div id="auth">
+  <div nz-row class="container">
+    <nz-card
+      nz-col
+      nzLg="8"
+      [nzSpan]="24"
+      class="bg-white py-2 px-4 sm:py-4 sm:px-7 xl:py-7 xl:px-7 rounded-lg relative"
+    >
+      <form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+        <div class="logo-container">
+          <img class="logo-image" [src]="logo.images" [alt]="logo.name" />
+          <span class="pl-3 logo-name auth-title">{{ logo.name }}</span>
+        </div>
+        <p class="mb-0 font-bold auth-title mt-5 lg:mt-6" nz-typography>
+          {{ 'common.register' | transloco: { sign: '!' } }}
+        </p>
+        <nz-steps [nzCurrent]="currentStep" nzSize="small" class="mt-5 lg:mt-6">
+          <nz-step *ngFor="let step of steps" [nzTitle]="step"></nz-step>
+        </nz-steps>
+
+        <div class="flex mt-2">
+          <app-button
+            ngClass="font-semibold flex justify-center"
+            height="40px"
+            label="common.backward"
+            (click)="onBackStep()"
+          ></app-button>
+          <app-button
+            ngClass="font-semibold flex justify-center ml-2"
+            height="40px"
+            label="common.nextStep"
+            (click)="onNextStep()"
+          ></app-button>
+        </div>
+
+        <ng-container *ngIf="currentStep === 0">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.role' | transloco }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-select (blur)="onBlur('role')" formControlName="role">
+                <nz-option *ngFor="let role of userRole" [nzValue]="role.value" [nzLabel]="role.name"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 2 && steps === studentStep">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.filedStudy' | transloco }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-select
+                (blur)="onBlur('fileds')"
+                formControlName="fileds"
+                nzMode="multiple"
+                nzPlaceHolder="Please select"
+              >
+                <nz-option *ngFor="let filed of fileds" [nzValue]="filed._id" [nzLabel]="filed.name"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 3 && steps === lectureStep">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.cidImage' | transloco: { text: 'front' } }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-upload
+                class="avatar-uploader"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                nzName="avatar"
+                nzListType="picture-card"
+                [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload"
+                (nzChange)="handleChangeFront($event)"
+              >
+                <ng-container *ngIf="!formGroup.value.cidFront">
+                  <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+                  <div class="ant-upload-text">Upload</div>
+                </ng-container>
+                <img *ngIf="formGroup.value.cidFront" [src]="formGroup.value.cidFront" style="width: 100%" />
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.cidImage' | transloco: { text: 'back' } }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-upload
+                class="avatar-uploader"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                nzName="avatar"
+                nzListType="picture-card"
+                [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload"
+                (nzChange)="handleChangeBack($event)"
+              >
+                <ng-container *ngIf="!formGroup.value.cidBack">
+                  <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+                  <div class="ant-upload-text">Upload</div>
+                </ng-container>
+                <img *ngIf="formGroup.value.cidBack" [src]="formGroup.value.cidBack" style="width: 100%" />
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 2 && steps === lectureStep">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.avatarUpload' | transloco }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-upload
+                class="avatar-uploader"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                nzName="avatar"
+                nzListType="picture-card"
+                [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload"
+                (nzChange)="handleChangeAvatar($event)"
+              >
+                <ng-container *ngIf="!formGroup.value.avatar">
+                  <span class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></span>
+                  <div class="ant-upload-text">Upload</div>
+                </ng-container>
+                <img *ngIf="formGroup.value.avatar" [src]="formGroup.value.avatar" style="width: 100%" />
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label nzFor="type">{{ 'screens.auth.cvUpload' | transloco }}</nz-form-label>
+            <nz-form-control [nzErrorTip]="error">
+              <nz-upload
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                [nzHeaders]="{ authorization: 'authorization-text' }"
+                (nzChange)="handleChangeCv($event)"
+              >
+                <button nz-button>
+                  <span nz-icon nzType="upload"></span>
+                  Click to Upload
+                </button>
+              </nz-upload>
+            </nz-form-control>
+          </nz-form-item>
+          <!-- <pdf-viewer
+            [src]="'https://vadimdez.github.io/ng2-pdf-viewer/assets/pdf-test.pdf'"
+            [render-text]="true"
+            [original-size]="false"
+            [page]="1"
+            [zoom]="1"
+            style="width: 100vw; height: 500px"
+          ></pdf-viewer> -->
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === 1">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label class="p-0" [nzSpan]="24" nzFor="phone">{{ 'input.label.phone' | transloco }}</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+              <nz-input-group>
+                <div class="flex">
+                  <input
+                    class="w-[80%]"
+                    id="phone"
+                    autofocus
+                    nz-input
+                    type="phone"
+                    formControlName="phone"
+                    (blur)="onBlur('phone')"
+                    placeholder="{{ 'input.placeholder.phone' | transloco }}"
+                  />
+                  <app-button
+                    ngClass="font-semibold flex justify-center ml-2"
+                    height="40px"
+                    label="common.sendOtp"
+                    (click)="sendOtp()"
+                  ></app-button>
+                </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mt-2" *ngIf="isShowOtp">
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+              <nz-input-group>
+                <input
+                  class="w-[73%]"
+                  id="otp"
+                  autofocus
+                  nz-input
+                  type="phone"
+                  formControlName="otp"
+                  (blur)="onBlur('otp')"
+                  placeholder="{{ 'input.placeholder.otp' | transloco }}"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+
+        <ng-container *ngIf="currentStep === steps.length - 1">
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label class="p-0" [nzSpan]="24" nzFor="password">{{
+              'screens.auth.password' | transloco
+            }}</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+              <nz-input-group [nzSuffix]="passwordTemplate">
+                <input
+                  id="password"
+                  autofocus
+                  nz-input
+                  autocomplete="password"
+                  [maxLength]="PASSWORD_MAX_LENGTH"
+                  [type]="passwordVisible ? 'text' : 'password'"
+                  formControlName="password"
+                  (blur)="onBlur('password')"
+                  placeholder="{{ 'form.placeholder.password' | transloco }}"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item class="mt-5 lg:mt-12">
+            <nz-form-label class="p-0" [nzSpan]="24" nzFor="confirmPassword">{{
+              'screens.auth.confirmPassword' | transloco
+            }}</nz-form-label>
+            <nz-form-control [nzSpan]="24" [nzErrorTip]="error">
+              <nz-input-group [nzSuffix]="confirmPasswordTemplate">
+                <input
+                  id="confirmPassword"
+                  autofocus
+                  nz-input
+                  autocomplete="confirmPassword"
+                  [maxLength]="PASSWORD_MAX_LENGTH"
+                  [type]="confirmPasswordVisible ? 'text' : 'password'"
+                  formControlName="confirmPassword"
+                  (blur)="onBlur('confirmPassword')"
+                  placeholder="{{ 'form.placeholder.confirmPassword' | transloco }}"
+                />
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </ng-container>
+
+        <div class="absolute bottom-10 right-10 left-10">
+          <app-button
+            *ngIf="currentStep === steps.length - 1"
+            ngClass="font-semibold flex justify-center"
+            height="40px"
+            width="100%"
+            btnType="submit"
+            type="primary"
+            label="common.register"
+          ></app-button>
+        </div>
+      </form>
+      <ng-template #error let-control>
+        <app-validation-error [control]="control"></app-validation-error>
+      </ng-template>
+    </nz-card>
+  </div>
+</div>
+
+<ng-template #passwordTemplate>
+  <span
+    nz-icon
+    [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+    (click)="passwordVisible = !passwordVisible"
+    tabindex="1"
+    (keyup.enter)="passwordVisible = !passwordVisible"
+  ></span>
+</ng-template>
+<ng-template #confirmPasswordTemplate>
+  <span
+    nz-icon
+    [nzType]="confirmPasswordVisible ? 'eye-invisible' : 'eye'"
+    (click)="confirmPasswordVisible = !confirmPasswordVisible"
+    tabindex="2"
+    (keyup.enter)="confirmPasswordVisible = !confirmPasswordVisible"
+  ></span>
+</ng-template>

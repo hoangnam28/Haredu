@@ -1,0 +1,56 @@
+<div class="flex justify-center">
+  <nz-card class="w-[100%] h-full" [nzBordered]="true">
+    <div class="flex justify-center large-title">{{ 'menubar.transactionHistory' | transloco }}</div>
+    <form nz-form [formGroup]="formGroup">
+      <div class="mt-2 flex">
+        <div class="w-[50%]"><app-date-picker (dateRangeChanged)="dateRangeChanged($event)"></app-date-picker></div>
+        <div class="w-[50%] flex justify-end gap-2">
+          <nz-form-item>
+            <nz-form-control>
+              <label nz-checkbox formControlName="plusMoney">{{ 'screens.users.plusMoney' | transloco }}</label>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <label nz-checkbox formControlName="minusMoney">{{ 'screens.users.minusMoney' | transloco }}</label>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+    <app-table
+      #dataTable
+      [data]="tableData.data"
+      [pageSize]="tableData.pageSize"
+      [pageIndex]="tableData.pageIndex"
+      [totalItem]="tableData.totalItem"
+      [tableConfig]="tableConfig"
+      [height]="'500px'"
+      [isLoading]="isLoading"
+      (onSearch)="onSearch($event)"
+      [customCell]="{ excutionTime, moneyExcution, moneyAfterExcution, reasonExcution, status }"
+      externalClass="js-tb"
+      parentClass="inner-content"
+    ></app-table>
+  </nz-card>
+</div>
+
+<ng-template #excutionTime let-data="$data">
+  {{ data.createdAt | date: 'yyyy-MM-dd HH:mm:ss' }}
+</ng-template>
+
+<ng-template #moneyExcution let-data="$data"> {{ data.changeBalance | formatBalance }} (VND) </ng-template>
+
+<ng-template #moneyAfterExcution let-data="$data"> {{ data.afterBalance | formatBalance }} (VND) </ng-template>
+
+<ng-template #reasonExcution let-data="$data">
+  {{ data.reason }}
+</ng-template>
+
+<ng-template #status let-data="$data">
+  {{ data.status
+  }}<span *ngIf="data.status === 'REJECT'"
+    ><span nz-icon nzType="warning" nzTheme="outline" nz-tooltip [nzTooltipTitle]="data.reasonReject"></span
+  ></span>
+  <span *ngIf="data.status === 'SUCCESS'"><span nz-icon nzType="check" nzTheme="outline"></span></span>
+</ng-template>

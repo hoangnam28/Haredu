@@ -1,0 +1,53 @@
+<div class="flex justify-center">
+  <nz-card class="w-[100%] h-full" [nzBordered]="true">
+    <div class="flex justify-center default-title">Profile</div>
+    <form nz-form nzLayout="vertical" class="mt-5">
+      <div class="flex">
+        <nz-form-item style="width: auto">
+          <img
+            style="width: 104px; height: 104px; border-radius: 50%; margin-right: 10px"
+            class=""
+            [src]="serverUrl + dataScreen?.avatar"
+          />
+        </nz-form-item>
+        <div>
+          <h1 class="text-3xl">{{ dataScreen?.name }}</h1>
+          <h1 class="text-3xl">{{ dataScreen?.role }}</h1>
+          <div class="flex teaching-fileds-list">
+            <p *ngFor="let item of teachingFileds">{{ item }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex lg:flex-row flex-col justify-between">
+        <nz-form-item class="lg:w-[49%] flex-col">
+          <div class="text-xl">Gender: {{ dataScreen?.gender ? 'Male' : 'Female' }}</div>
+          <div class="text-xl">Date of birth: {{ convertToDate(dataScreen?.dob) }}</div>
+        </nz-form-item>
+      </div>
+      <div class="flex gap-6" *ngIf="dataScreen?.role === 'TUTOR'">
+        <button
+          nz-button
+          nzType="primary"
+          nzGhost
+          class="flex items-center"
+          (click)="handleSubsbcribe(dataScreen?._id)"
+        >
+          <span class="text-2xl" nz-icon nzType="bell" nzTheme="outline"></span>
+          <span>{{ isSubscribed ? 'Unsubscribe' : 'Subscribe' }}</span>
+        </button>
+        <button
+          (click)="onButtonClickDownloadCv()"
+          [disabled]="!dataScreen?.detailInfo?.curriculumVitaePath"
+          nz-button
+          nzType="primary"
+        >
+          View CV
+        </button>
+      </div>
+    </form>
+  </nz-card>
+</div>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

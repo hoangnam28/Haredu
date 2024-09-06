@@ -1,0 +1,144 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.main-layout {
+  height: calc(100%);
+  position: relative;
+
+  nz-sider {
+    background-color: $white;
+    width: $sidebar-width !important;
+    min-width: $sidebar-width !important;
+    max-width: $sidebar-width !important;
+    transition: all ease-in-out 0.25s;
+    z-index: 100;
+  }
+
+  nz-content {
+    height: calc(100vh - 88px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+
+  app-menu {
+    display: block;
+    max-height: calc(100vh - $sidebar-logo-height - $sidebar-logout-height);
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    & {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    // padding: 0px 0px $logo-height 0px;paddingpadding
+  }
+
+  #logo {
+    display: flex;
+    width: $sidebar-width;
+    height: $sidebar-logo-height;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+    font-weight: 700;
+    font-size: $logo-font;
+    text-align: center;
+
+    span {
+      transition: all 0.2s ease-in;
+      white-space: nowrap;
+    }
+
+    .logo-image {
+      height: $logo-image-height;
+      width: $logo-image-width;
+    }
+
+    .logo-name {
+      background: $logo-color-webkit;
+      background: $logo-color;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .logo-hidden {
+      width: 0;
+      opacity: 0;
+    }
+  }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .inner-content {
+    scroll-behavior: smooth;
+    margin: 16px 16px 0;
+
+    .container {
+      padding: 0;
+    }
+  }
+
+  .trigger {
+    font-size: $font-16;
+    margin: 15px 0;
+  }
+
+  .user-dropdown {
+    background: $linear-gradient-primary;
+    box-shadow: $shadow-primary;
+    color: $white;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.95;
+    }
+  }
+}
+
+.toogle-sidebar {
+  #logo {
+    width: $sidebar-width-toggle !important;
+
+    .logo-image {
+      height: $logo-image-height-toggle;
+      width: $logo-image-width-toggle;
+    }
+  }
+
+  nz-sider {
+    width: $sidebar-width-toggle !important;
+    min-width: $sidebar-width-toggle !important;
+    max-width: $sidebar-width-toggle !important;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .toogle-sidebar {
+    nz-sider {
+      width: calc($sidebar-width-toggle - 15px) !important;
+      min-width: calc($sidebar-width-toggle - 15px) !important;
+      max-width: calc($sidebar-width-toggle - 15px) !important;
+    }
+  }
+}
+
+.hidden-sidebar {
+  nz-sider {
+    display: none !important;
+  }
+}

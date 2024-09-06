@@ -1,0 +1,41 @@
+@import '../../../../styles/variables.scss';
+
+.breadcrumb > ul {
+  height: 30px;
+  display: flex;
+  width: 100%;
+  padding: 15px 0;
+  margin: 30px 0 20px 0;
+  align-items: center;
+  justify-content: flex-start;
+
+  li,
+  mat-icon {
+    cursor: default;
+    color: $breadcrumb-color;
+
+    &[tabindex='2'] {
+      cursor: pointer !important;
+
+      &:focus-visible {
+        outline: 1px solid black !important;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  mat-icon {
+    color: $breadcrumb-slash;
+    margin: 0px 5px;
+    width: $font-16;
+    height: $font-16;
+  }
+
+  .active {
+    color: $primary-color;
+
+    &:hover {
+      color: $breadcrumb-hover-color;
+    }
+  }
+}

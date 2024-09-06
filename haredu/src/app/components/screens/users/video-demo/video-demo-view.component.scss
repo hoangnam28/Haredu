@@ -1,0 +1,62 @@
+.heading {
+  font-size: 30px;
+  color: green;
+}
+
+.list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, calc(100% / 4 - 16px)));
+  grid-column-gap: 16px;
+  grid-row-gap: 30px;
+  margin-top: 15px;
+}
+
+.img-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Tỷ lệ 16:9 = 9/16 = 0.5625 hoặc 56.25% */
+  overflow: hidden;
+}
+
+.img-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Đảm bảo ảnh luôn lấp đầy container với tỷ lệ 16:9 */
+  border-radius: 5px;
+}
+.vid-list .flex-div {
+  align-items: flex-start;
+  margin-top: 7px;
+}
+
+.vid-list .flex-div img {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.vid-info {
+  color: #5a5a5a;
+  font-size: 13px;
+}
+
+.vid-info a {
+  color: black;
+  font-weight: 600;
+  display: block;
+  margin: bottom 5px;
+}
+
+.name-video-container {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3em; /* Adjust this if your line-height is different */
+  line-height: 1.5em; /* Ensure this matches the line height of your text */
+}

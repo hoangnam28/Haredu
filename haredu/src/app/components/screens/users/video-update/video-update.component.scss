@@ -1,0 +1,8 @@
+::ng-deep .ant-upload.ant-upload-select-picture-card {
+  width: calc(150px / 9 * 16) !important;
+  height: 150px !important;
+
+  img {
+    object-fit: cover;
+  }
+}

@@ -1,0 +1,32 @@
+<nz-card [nzTitle]="'menubar.articleManage' | transloco">
+  <form nz-form [formGroup]="formGroup">
+    <div class="mt-2 flex">
+      <div class="w-[50%]"><app-date-picker></app-date-picker></div>
+    </div>
+  </form>
+  <app-table
+    #dataTable
+    [data]="tableData.data"
+    [pageSize]="tableData.pageSize"
+    [pageIndex]="tableData.pageIndex"
+    [totalItem]="tableData.totalItem"
+    [tableConfig]="tableConfig"
+    [height]="'400px'"
+    [isLoading]="isLoading"
+    (onSearch)="onSearch($event)"
+    [customCell]="{ registrationTime, role, action }"
+    externalClass="js-tb"
+    parentClass="inner-content"
+  ></app-table>
+</nz-card>
+
+<ng-template #registrationTime>
+  {{ fakeDate | date: 'yyyy-MM-dd' }}
+</ng-template>
+<ng-template #role let-data="$data">
+  {{ [data.role] | memo: getRoleName }}
+</ng-template>
+
+<ng-template #action>
+  <button nz-button>{{ 'common.view' | transloco }}</button>
+</ng-template>

@@ -1,0 +1,64 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical">
+  <div class="flex lg:flex-row flex-col">
+    <div class="lg:w-[30%]">
+      <nz-upload
+        class="avatar-uploader"
+        [nzAction]="apiUrl + '/videos/' + data.id + '/upload-thumbnail'"
+        nzName="file"
+        nzListType="picture-card"
+        [nzShowUploadList]="false"
+        [nzBeforeUpload]="beforeUpload"
+        (nzChange)="handleChange($event)"
+      >
+        <ng-container *ngIf="!avatarUrl">
+          <div class="ant-upload-text">Upload</div>
+        </ng-container>
+        <img *ngIf="avatarUrl" [src]="avatarUrl" style="width: 100%" />
+      </nz-upload>
+    </div>
+    <div class="lg:w-[70%]">
+      <nz-form-item>
+        <nz-form-label nzFor="name">Name</nz-form-label>
+        <nz-form-control>
+          <nz-input-group>
+            <input autofocus nz-input formControlName="name" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="teachingFiledId">Teach Fileds</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="teachingFiledId">
+            <nz-option *ngFor="let filed of fileds" [nzValue]="filed._id" [nzLabel]="filed.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <nz-form-item>
+    <nz-form-label nzFor="description">Description</nz-form-label>
+    <nz-form-control>
+      <editor
+        [apiKey]="tinyKey"
+        id=""
+        [init]="init"
+        initialValue=""
+        [inline]="false"
+        plugins=""
+        toolbar=""
+        tagName="div"
+        menubar=""
+        formControlName="description"
+        name="description"
+      ></editor>
+    </nz-form-control>
+  </nz-form-item>
+  <div class="flex justify-end">
+    <button class="mr-2" nz-button nzType="primary" nzDanger="" (click)="onClickCancel()">
+      {{ 'common.cancel' | transloco }}
+    </button>
+    <button class="mr-2" nz-button nzType="primary" (click)="onClickSave()">
+      {{ 'common.update' | transloco }}
+    </button>
+  </div>
+</form>

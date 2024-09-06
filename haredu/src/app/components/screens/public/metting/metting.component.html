@@ -1,0 +1,107 @@
+<div id="videos" class="flex justify-center items-center h-[100vh] gap-5" *ngIf="isShowLocalVideo; else notShow">
+  <span class="relative">
+    <video id="localVideo" autoplay playsinline #localVideo></video>
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2">
+      <span
+        nz-button
+        (click)="showCamera()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative"
+        [class.bg-red-500]="!isOnCamera"
+        [class.bg-gray-600]="isOnCamera"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="camera" nzTheme="outline"></span>
+        <span *ngIf="!isOnCamera" class="camera-slash"></span>
+      </span>
+      <span
+        nz-button
+        (click)="showMicro()"
+        class="rounded-full bg-transparent p-3 border-2 border-white cursor-pointer relative"
+        [class.bg-red-500]="!isOnMicro"
+        [class.bg-gray-600]="isOnMicro"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="customer-service" nzTheme="outline"></span>
+        <span *ngIf="!isOnMicro" class="camera-slash"></span>
+      </span>
+    </div>
+  </span>
+  <div class="flex justify-center m-w-[20vw] gap-2 border border-black rounded-lg p-5">
+    <button nz-button nzType="primary" (click)="startCall()">Start call</button>
+    <button nz-button>Leave</button>
+  </div>
+</div>
+<ng-template #notShow>
+  <div #videoContainer class="video-container">
+    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-50">
+      <span
+        nz-button
+        (click)="showCamera()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative"
+        [class.bg-red-500]="!isOnCamera"
+        [class.bg-gray-600]="isOnCamera"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="camera" nzTheme="outline"></span>
+        <span *ngIf="!isOnCamera" class="camera-slash"></span>
+      </span>
+      <span
+        nz-button
+        (click)="showMicro()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative"
+        [class.bg-red-500]="!isOnMicro"
+        [class.bg-gray-600]="isOnMicro"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="customer-service" nzTheme="outline"></span>
+        <span *ngIf="!isOnMicro" class="camera-slash"></span>
+      </span>
+      <span
+        nz-button
+        (click)="!isShareScreen ? shareScreen() : stopScreen()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative bg-gray-600"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="share-alt" nzTheme="outline"></span>
+      </span>
+      <span
+        nz-button
+        (click)="showMessageList()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative bg-gray-600"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="message" nzTheme="outline"></span>
+      </span>
+      <span
+        nz-button
+        (click)="showUserList()"
+        class="rounded-full p-3 border-2 border-white cursor-pointer relative bg-gray-600"
+      >
+        <span class="text-2xl text-white" nz-icon nzType="user" nzTheme="outline"></span>
+      </span>
+    </div>
+  </div>
+</ng-template>
+
+<div #membersContainer class="members-container flex flex-col gap-2 bg-white" [class.open]="visible">
+  <div class="flex justify-between items-center p-3 border-b border-gray-300">
+    <span class="text-lg">Members</span>
+    <span class="cursor-pointer" nz-button nzType="text" (click)="close()">Close</span>
+  </div>
+</div>
+
+<div #messContainer class="mess-container flex flex-col gap-2 bg-white" [class.open]="isShowMess">
+  <div class="relative">
+    <div class="flex justify-between items-center p-3 border-b border-gray-300">
+      <span class="text-lg">Message</span>
+      <span class="cursor-pointer" nz-button nzType="text" (click)="closeMes()">Close</span>
+    </div>
+    <div *ngFor="let m of messages" class="flex flex-col mt-2">
+      <span class="large-text-bold">{{ m.userName }}</span>
+      <span>{{ m.message }}</span>
+      <hr class="mt-2" />
+    </div>
+
+    <div class="fixed bottom-5">
+      <hr />
+      <div class="flex gap-2 flex-grow items-center mt-5">
+        <input nz-input placeholder="Type message" (keyup.enter)="sendMessage()" class="w-[400px]" [(ngModel)]="mess" />
+        <button nz-button nzType="primary" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

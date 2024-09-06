@@ -1,0 +1,16 @@
+<div class="breadcrumb" *ngIf="!isHidden">
+  <ul class="gap-x-1">
+    <ng-container *ngFor="let i of breadcrumb; let index = index; let isLast = last">
+      <li
+        (click)="to(i.url)"
+        (keyup.enter)="to(i.url)"
+        [tabindex]="i.url && !isLast ? 2 : -1"
+        [ngClass]="{ active: i.url && !isLast }"
+        class="text-2xl"
+      >
+        {{ i.label }}
+      </li>
+      <mat-icon svgIcon="arrow-right" *ngIf="index !== breadcrumb.length - 1"></mat-icon>
+    </ng-container>
+  </ul>
+</div>

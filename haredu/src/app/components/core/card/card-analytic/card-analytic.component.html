@@ -1,0 +1,48 @@
+<nz-card class="card-analytic-container rounded-md w-full card-bg-primary">
+  <h6 class="mb-1 font-bold flex items-center" nz-typography [ngClass]="titleStyle">
+    <ng-container
+      *ngIf="customTitle; else normalTitle"
+      [ngTemplateOutletContext]="{
+        $data: {
+          title,
+          upTren,
+          downTren
+        }
+      }"
+      [ngTemplateOutlet]="customTitle"
+    ></ng-container>
+    <ng-template #normalTitle>
+      <span *ngIf="isUppercase; else normalCase">{{ title | uppercase }}</span>
+      <ng-template #normalCase>
+        <span>{{ title }}</span>
+      </ng-template>
+      <span class="flex items-center ml-2 text-success" *ngIf="upTren">
+        <mat-icon style="width: 16px; height: 16px" class="text-sm cursor-text">trending_up</mat-icon>
+        <span class="text-xs font-medium">{{ upTren }}%</span>
+      </span>
+      <span class="flex items-center ml-2 text-error" *ngIf="downTren">
+        <mat-icon style="width: 16px; height: 16px" class="text-sm cursor-text">trending_down</mat-icon>
+        <span class="text-xs font-medium">{{ downTren }}9%</span>
+      </span>
+    </ng-template>
+  </h6>
+  <div class="text-xl">
+    <ng-container
+      *ngIf="customContent; else onlyText"
+      [ngTemplateOutletContext]="{
+        $data: {
+          value,
+          valueStyle,
+          prefix,
+          suffix
+        }
+      }"
+      [ngTemplateOutlet]="customContent"
+    ></ng-container>
+    <ng-template #onlyText>
+      <span>{{ prefix }}</span>
+      <span [ngClass]="valueStyle">{{ value }}</span>
+      <span>{{ suffix }}</span>
+    </ng-template>
+  </div>
+</nz-card>

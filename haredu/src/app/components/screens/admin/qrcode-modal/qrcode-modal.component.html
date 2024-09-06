@@ -1,0 +1,53 @@
+<div class="flex text-center justify-center flex-col items-center">
+  <img [src]="img" alt="" />
+</div>
+<div *ngIf="isReject">
+  <form nz-form [formGroup]="formGroup" nzLayout="horizontal">
+    <nz-form-item>
+      <nz-form-label nzFor="reasonReject">Reason Reject</nz-form-label>
+      <nz-form-control [nzErrorTip]="error">
+        <nz-input-group>
+          <input nz-input formControlName="reasonReject" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+
+<div *ngIf="!isReject">
+  <form nz-form [formGroup]="formGroup" nzLayout="vertical">
+    <nz-form-item>
+      <nz-form-label nzFor="proof">Upload Proof</nz-form-label>
+      <nz-form-control>
+        <nz-upload
+          id="proof"
+          name="proof"
+          class="avatar-uploader"
+          [nzAction]="apiUrl + '/galleries/create'"
+          nzName="images"
+          nzListType="picture-card"
+          [nzShowUploadList]="false"
+          [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event, 'proof')"
+        >
+          <ng-container *ngIf="!formGroup.value.proof">
+            <div class="ant-upload-text">Add image</div>
+          </ng-container>
+          <img
+            *ngIf="formGroup.value.proof"
+            [src]="serverUrl + formGroup.value.proof"
+            class="object-contain w-full h-full"
+          />
+        </nz-upload>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+<div class="flex gap-5 justify-center">
+  <button nz-button nzType="primary" nzDanger nzSize="large" (click)="showReject()">Reject</button>
+  <button nz-button nzType="primary" nzSize="large" (click)="showAccept()">Accept</button>
+</div>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

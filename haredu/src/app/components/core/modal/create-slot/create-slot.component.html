@@ -1,0 +1,30 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+  <nz-form-item>
+    <nz-form-label nzFor="title">Title</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input autofocus nz-input formControlName="title" (blur)="onBlur('title')" placeholder="Enter title" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="description">Description</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <textarea
+          nz-input
+          type="text"
+          (blur)="onBlur('description')"
+          [placeholder]="'Enter description'"
+          formControlName="description"
+          rows="4"
+          class="h-[100px]"
+        ></textarea>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button nz-button nzType="primary" type="submit">{{ title ? 'Update' : 'Create' }}</button>
+</form>
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

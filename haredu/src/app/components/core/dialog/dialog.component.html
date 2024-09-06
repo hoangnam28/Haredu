@@ -1,0 +1,36 @@
+<mat-icon *ngIf="icon" [svgIcon]="icon"></mat-icon>
+<div [innerHTML]="message | transloco"></div>
+<ng-container [ngSwitch]="type">
+  <ng-container *ngSwitchCase="DIALOG.INFO" [ngTemplateOutlet]="info"></ng-container>
+  <ng-container *ngSwitchCase="DIALOG.ERROR" [ngTemplateOutlet]="error"></ng-container>
+  <ng-container *ngSwitchCase="DIALOG.CONFIRM" [ngTemplateOutlet]="confirm"></ng-container>
+  <ng-container *ngSwitchCase="DIALOG.WARNING" [ngTemplateOutlet]="warning"></ng-container>
+  <ng-container *ngSwitchCase="DIALOG.INFO_WITHOUT_ICON" [ngTemplateOutlet]="info"></ng-container>
+  <ng-container *ngSwitchCase="DIALOG.CONFIRM_WITHOUT_ICON" [ngTemplateOutlet]="confirm"></ng-container>
+</ng-container>
+
+<ng-template #info>
+  <div *nzModalFooter class="flex justify-center">
+    <button nz-button (click)="onOk()" nzType="primary" tabIndex="0">{{ okText | transloco }}</button>
+  </div>
+</ng-template>
+
+<ng-template #error>
+  <div *nzModalFooter class="flex justify-center">
+    <button nz-button (click)="onOk()" nzDanger nzType="primary" tabIndex="0">{{ okText | transloco }}</button>
+  </div>
+</ng-template>
+
+<ng-template #confirm>
+  <div *nzModalFooter class="flex justify-center gap-x-10">
+    <button nz-button (click)="onOk()" nzType="primary" tabIndex="0">{{ okText | transloco }}</button>
+    <button nz-button (click)="onCancel()" nzType="default" tabIndex="0">{{ cancelText | transloco }}</button>
+  </div>
+</ng-template>
+
+<ng-template #warning>
+  <div *nzModalFooter class="flex justify-center gap-x-10">
+    <button nz-button (click)="onOk()" nzType="primary" tabIndex="  0">{{ okText | transloco }}</button>
+    <button nz-button (click)="onCancel()" nzType="default" tabIndex="0">{{ cancelText | transloco }}</button>
+  </div>
+</ng-template>

@@ -1,0 +1,40 @@
+<div
+  class="user-dropdown bottom-[30px] right-5 left-5 absolute rounded-xl flex justify-center p-1"
+  nz-button
+  nz-dropdown
+  nzPlacement="topCenter"
+  [nzDropdownMenu]="menu1"
+  nzTrigger="click"
+>
+  <div class="user-dropdown-container">
+    <mat-icon class="m-2 user-circle" [svgIcon]="'user-circle'"></mat-icon>
+    <div class="role-name" [class.hidden]="isCollapsed">Master</div>
+    <div class="email" [class.hidden]="isCollapsed">{{ 'kienkieu080702@gmail.com' }}</div>
+  </div>
+  <nz-dropdown-menu #menu1="nzDropdownMenu">
+    <ul nz-menu class="border-[0.1px] border-gray-300 rounded-md p-0 main-dropdown">
+      <ng-container *ngFor="let item of dropdownItem">
+        <ng-template #submenu>
+          <span class="mr-1">
+            <mat-icon
+              *ngIf="item.icon"
+              class="icon"
+              [svgIcon]="item.icon"
+              nz-tooltip="{{ item.label | transloco }}"
+            ></mat-icon>
+          </span>
+          <span class="title" nz-tooltip="{{ item.label | transloco }}">{{ item.label | transloco }} dfdsf</span>
+        </ng-template>
+        <li
+          #menuItem
+          nz-menu-item
+          (click)="redirectTo(item.routerLink)"
+          class="border-b-[0.1px] border-gray-300 py-3 px-2"
+        >
+          <div class="flex-center" *ngTemplateOutlet="submenu"></div>
+        </li>
+      </ng-container>
+      <li class="py-3 mr-1 title px-2 w-full" nz-menu-item>{{ 'screens.auth.logout' | transloco }}fdfd</li>
+    </ul>
+  </nz-dropdown-menu>
+</div>

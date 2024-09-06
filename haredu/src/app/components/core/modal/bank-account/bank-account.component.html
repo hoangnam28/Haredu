@@ -1,0 +1,39 @@
+<form nz-form [formGroup]="formGroup" nzLayout="vertical" (submit)="onSubmit($event)">
+  <nz-form-item>
+    <nz-form-label nzFor="bankName">{{ 'screens.users.bankName' | transloco }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-select (blur)="onBlur('bankName')" formControlName="bankName">
+        <nz-option *ngFor="let item of banks" [nzLabel]="item.shortName + ' - ' + item.name" [nzValue]="item.bin">{{
+          item.name
+        }}</nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="bankNumber">{{ 'screens.users.bankNumber' | transloco }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input nz-input formControlName="bankNumber" (blur)="onBlur('bankNumber')" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="fullName">{{ 'screens.users.fullName' | transloco }}</nz-form-label>
+    <nz-form-control [nzErrorTip]="error">
+      <nz-input-group>
+        <input nz-input formControlName="fullName" (blur)="onBlur('fullName')" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <button class="mr-2" (click)="onButtonClickCheck()" nz-button nzType="primary">Kiểm tra</button>
+  <button *ngIf="data.isCreated" class="mr-2" (click)="onButtonClickCreate()" nz-button nzType="primary">
+    {{ 'common.create' | transloco }}
+  </button>
+  <button *ngIf="!data.isCreated" class="mr-2" (click)="onButtonClickCreate()" nz-button nzType="primary">
+    {{ 'common.update' | transloco }}
+  </button>
+</form>
+
+<ng-template #error let-control>
+  <app-validation-error [control]="control"></app-validation-error>
+</ng-template>

@@ -1,0 +1,114 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.profile-layout {
+  height: calc(100% - 72px);
+
+  nz-sider {
+    background-color: $white;
+    width: $sidebar-width !important;
+    min-width: $sidebar-width !important;
+    max-width: $sidebar-width !important;
+    transition: all ease-in-out 0.25s;
+    z-index: 100;
+  }
+
+  nz-content {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  nz-footer {
+    text-align: center;
+  }
+
+  app-menu {
+    display: block;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    & {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+    // padding: 0px 0px $logo-height 0px;paddingpadding
+  }
+
+  #logo {
+    display: flex;
+    width: $sidebar-width;
+    height: $sidebar-logo-height;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+    font-weight: 700;
+    font-size: $logo-font;
+    text-align: center;
+
+    span {
+      transition: all 0.2s ease-in;
+      white-space: nowrap;
+    }
+
+    .logo-image {
+      height: $logo-image-height;
+      width: $logo-image-width;
+    }
+
+    .logo-name {
+      background: $logo-color-webkit;
+      background: $logo-color;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .logo-hidden {
+      width: 0;
+      opacity: 0;
+    }
+  }
+
+  .header {
+    padding: 0 10px;
+  }
+
+  .inner-content {
+    scroll-behavior: smooth;
+    margin: 16px 16px 0;
+
+    .container {
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .toogle-sidebar {
+    nz-sider {
+      width: calc($sidebar-width-toggle - 15px) !important;
+      min-width: calc($sidebar-width-toggle - 15px) !important;
+      max-width: calc($sidebar-width-toggle - 15px) !important;
+    }
+  }
+}
+
+.user-dropdown {
+  background: $linear-gradient-primary;
+  box-shadow: $shadow-primary;
+  color: $white;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.95;
+  }
+}

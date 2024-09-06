@@ -1,0 +1,40 @@
+<nz-card class="rounded-md max-w-full" [nzTitle]="'Demo page 2'" [nzExtra]="create">
+  <form nz-form [formGroup]="formGroup" nzLayout="vertical">
+    <nz-form-item class="w-3/5">
+      <nz-form-control>
+        <nz-input-group>
+          <input nz-input formControlName="search" placeholder="Enter search" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <app-table
+    #dataTable
+    [data]="tableData.data"
+    [pageSize]="tableData.pageSize"
+    [pageIndex]="tableData.pageIndex"
+    [totalItem]="tableData.totalItem"
+    [tableConfig]="tableConfig"
+    [height]="'500px'"
+    [isLoading]="isLoading"
+    (onSearch)="onSearch($event)"
+    [customCell]="{ isActive, action }"
+    externalClass="js-tb"
+    parentClass="inner-content"
+  ></app-table>
+</nz-card>
+
+<ng-template #isActive let-data="$data">
+  <span *ngIf="data.isActive; else notActive"
+    ><nz-badge nzStatus="success"></nz-badge>{{ 'common.active' | transloco }}</span
+  >
+  <ng-template #notActive> <nz-badge nzStatus="error"></nz-badge> {{ 'common.inActive' | transloco }} </ng-template>
+</ng-template>
+<ng-template #action let-data="$data">
+  <span class="underline hover:text-blue-600 cursor-pointer" (click)="openUpdate(data)">{{
+    'common.edit' | transloco
+  }}</span>
+</ng-template>
+<ng-template #create>
+  <app-button label="common.create" icon="plus" type="primary" (click)="openCreate()"> </app-button>
+</ng-template>

@@ -1,0 +1,128 @@
+<div class="container play-container">
+  <div class="row">
+    <div class="play-video">
+      <video controls autoplay crossorigin playsInline #videoElement>
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="tags">
+        <a href="">#{{ dataScreen?.currentVideo?.teachingFiledId?.name }}</a>
+      </div>
+      <h3>{{ dataScreen?.currentVideo?.name }}</h3>
+      <div class="play-video-info">
+        <p>
+          {{ dataScreen?.currentVideo?.view }} Views &bull; {{ convertToDate(dataScreen?.currentVideo?.createdAt) }}
+        </p>
+      </div>
+      <hr />
+      <div class="owner">
+        <a [routerLink]="['/users/profile', dataScreen?.currentVideo?.userId?.slug]">
+          <img [src]="serverUrl + dataScreen?.currentVideo?.userId?.avatar" />
+        </a>
+        <div>
+          <p>{{ dataScreen?.currentVideo?.userId?.name }}</p>
+          <span>19.4K subscribers</span>
+        </div>
+        <button type="button">Subscribe</button>
+      </div>
+
+      <div class="vid-des" [innerHTML]="dataScreen?.currentVideo?.description">
+        <!-- <hr />
+        <div class="cmnt">
+          <h4>16,303 Commnets</h4>
+          <img src="./images/menu.png" alt="" srcset="" />
+          <span>SORT BY</span>
+        </div>
+
+        <div class="add-cmnt">
+          <img src="./images/nilava.jpeg" alt="" srcset="" />
+          <input type="text" placeholder="Add a Public Comment" />
+        </div>
+
+        <div class="old-cmnt">
+          <img src="./images/Harpreet.jpg" alt="" srcset="" />
+          <div>
+            <h3>Atinder Kumar <span>2 Day ago</span></h3>
+            <p>
+              Look at elon’s expression and body language at the mention of Ratan Tata and the self correction he does
+              when he <br />
+              talks about him. Ratan Tata is a gem .
+            </p>
+
+            <div class="cmnt-react">
+              <img src="./images/like.png" alt="" srcset="" />
+              <span>1.2K</span>
+              <img src="./images/dislike.png" alt="" srcset="" />
+              <span></span>
+              <span>REPLY</span>
+              <a href="http://">ALL Replies</a>
+              <div>&bull; View 9 Replies</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="old-cmnt">
+          <img src="./images/Harpreet.jpg" alt="" srcset="" />
+          <div>
+            <h3>Atinder Kumar <span>2 Day ago</span></h3>
+            <p>
+              Look at elon’s expression and body language at the mention of Ratan Tata and the self correction he does
+              when he <br />
+              talks about him. Ratan Tata is a gem .
+            </p>
+
+            <div class="cmnt-react">
+              <img src="./images/like.png" alt="" srcset="" />
+              <span>1.2K</span>
+              <img src="./images/dislike.png" alt="" srcset="" />
+              <span></span>
+              <span>REPLY</span>
+              <a href="http://">ALL Replies</a>
+              <div>&bull; View 9 Replies</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="old-cmnt">
+          <img src="./images/Harpreet.jpg" alt="" srcset="" />
+          <div>
+            <h3>Atinder Kumar <span>2 Day ago</span></h3>
+            <p>
+              Look at elon’s expression and body language at the mention of Ratan Tata and the self correction he does
+              when he <br />
+              talks about him. Ratan Tata is a gem .
+            </p>
+
+            <div class="cmnt-react">
+              <img src="./images/like.png" alt="" srcset="" />
+              <span>1.2K</span>
+              <img src="./images/dislike.png" alt="" srcset="" />
+              <span></span>
+              <span>REPLY</span>
+              <a href="http://">ALL Replies</a>
+              <div>&bull; View 9 Replies</div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <hr class="hide-hr" />
+    </div>
+    <div class="right-sidebar">
+      <div *ngFor="let item of this.dataScreen?.relateVideoList" class="side-video-list">
+        <a [routerLink]="['/videos', item._id]" class="small-thumbnail">
+          <div class="img-container"><img [src]="serverUrl + item?.thumbnail" alt="" srcset="" /></div>
+        </a>
+        <div class="vid-info">
+          <a [routerLink]="['/videos', item._id]">{{ item?.name }}</a>
+          <div class="tags">
+            <a>#{{ item?.teachingFiledId.name }}</a>
+          </div>
+          <a [routerLink]="['/users/profile', item.userId?.slug]">
+            <p>{{ item?.userId.name }}</p>
+          </a>
+          <p>{{ item?.view }} Views</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<p class="large-text">
+  {{ 'common.table.header.updateTime' | transloco }}: {{ data.userId.updatedAt | date: 'hh:mm:ss dd-MM-yyyy' }}
+</p>
+<p class="large-text mt-2">Name: {{ data.userId.name }}</p>
+<p class="large-text mt-2">Email: {{ data.userId.email }}</p>
+<p class="large-text mt-2">
+  Avatar: <a [href]="serverUrl + data.userId.avatar" target="_blank"><span class="text-link">View</span></a>
+</p>
+<p class="large-text mt-2">
+  Identity Card Front Side:
+  <a [href]="serverUrl + data.identityCardFront" target="_blank"><span class="text-link">View</span></a>
+</p>
+<p class="large-text mt-2">
+  Identity Card Back Side:
+  <a [href]="serverUrl + data.identityCardBack" target="_blank"><span class="text-link">View</span></a>
+</p>
+<input nz-input placeholder="Reject reason" [(ngModel)]="value" />
+<div class="flex gap-3 justify-end mt-5">
+  <button (click)="onClickReject()" nz-button class="bg-red-600 text-white cursor-pointer">
+    {{ 'common.reject' | transloco }}
+  </button>
+  <button (click)="onClickAccept()" nz-button class="bg-green-600 text-white cursor-pointer">
+    {{ 'common.accept' | transloco }}
+  </button>
+</div>

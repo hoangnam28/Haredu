@@ -1,0 +1,130 @@
+<div class="table-wrapper">
+  <app-fragment>
+    <ng-content select="[header]"></ng-content>
+    <nz-table
+      expandIcon
+      #nestedTable
+      [style]="style"
+      [nzData]="nzTotal"
+      [nzLoading]="isLoading"
+      (nzQueryParams)="onQueryChange($event)"
+      nzSize="small"
+      [nzScroll]="{ x: widthStartScroll, y: _height }"
+      [nzFrontPagination]="false"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    >
+      <thead>
+        <tr [class.hidden]="!isShowHeader">
+          <th
+            nzLeft
+            id="index"
+            class="font-bold"
+            *ngIf="!showCheckbox && isShowIndex"
+            nzAlign="center"
+            nzWidth="20px"
+          ></th>
+          <th
+            nzLeft
+            [nzChecked]="isCheckedAll"
+            *ngIf="showCheckbox && !isShowIndex"
+            [nzIndeterminate]="indeterminate"
+            [nzSelections]="listOfSelection"
+            nzWidth="30px"
+            (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+          <ng-container *ngFor="let config of tableConfig; let index = index; trackBy: trackBy">
+            <th
+              *ngIf="checkCanDisplay(config.roles)"
+              [nzShowSort]="config.sort"
+              [nzLeft]="config.fixed || false"
+              class="font-bold"
+              [id]="config.title"
+              [nzAlign]="config.align || 'left'"
+              [nzWidth]="config.width || 'auto'"
+              [nzColumnKey]="config.key"
+              [nzSortFn]="true"
+            >
+            <ng-container
+                *ngIf="customCollumn[config.key + 'Column']; else noCustomColl"
+                [ngTemplateOutletContext]="{ $data: data }"
+                [ngTemplateOutlet]="customCollumn[config.key + 'Column']"
+              ></ng-container>
+              <ng-template #noCustomColl><span [class.uppercase]="isUpperCaseHeader">{{ config.title | transloco}}</span></ng-template>
+            </th>
+          </ng-container>
+        </tr>
+      </thead>
+      <tbody [class.no-data]="!nzTotal.length">
+        <tr
+          (click)="onClickItem(data)"
+          *ngFor="let data of nestedTable.data; index as i; trackBy: trackBy"
+          [ngClass]="{
+            checked: isChecked(data.id),
+            disabled: data.disabled
+          }"
+        >
+          <td nzLeft nzAlign="center" *ngIf="!showCheckbox && isShowIndex">
+            {{ generateId(i) }}
+          </td>
+          <td
+            nzLeft
+            *ngIf="showCheckbox && !isShowIndex"
+            [nzChecked]="isChecked(data.id)"
+            [nzDisabled]="data.disabled || false"
+            (nzCheckedChange)="onItemChecked(data, $event)"
+          ></td>
+
+          <ng-container *ngFor="let config of tableConfig; index as i">
+            <td
+              *ngIf="checkCanDisplay(config.roles)"
+              [nzLeft]="config.fixed || false"
+              [nzAlign]="config.align || 'left'"
+            >
+              <ng-container
+                *ngIf="customCell[config.key]; else onlyText"
+                [ngTemplateOutletContext]="{ $data: data }"
+                [ngTemplateOutlet]="customCell[config.key]"
+              ></ng-container>
+              <ng-template #onlyText>{{ data[config.key] | empty }}</ng-template>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </nz-table>
+    <div
+      [ngClass]="{
+        hidden: !showPaginate,
+        visible: nzTotal.length && !isLoading,
+        invisible: !(nzTotal.length && !isLoading)
+      }"
+      class="flex justify-between gap-6 items-center"
+    >
+      <div class="flex justify-between items-center">
+        <nz-pagination
+          (nzPageIndexChange)="onPageIndexChange($event)"
+          [nzPageSize]="pageSize"
+          [nzPageIndex]="_pageIndex"
+          [nzTotal]="totalItem"
+        ></nz-pagination>
+        <p class="ml-4 text-base">
+          {{ 'common.table.paginate.displayed-result' | transloco }}
+        </p>
+        <nz-select class="ml-2" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChange($event)">
+          <nz-option *ngFor="let p of PAGE_SIZE" [nzValue]="p" [nzLabel]="p"></nz-option>
+        </nz-select>
+      </div>
+      <span
+        class="text-base"
+        [innerHTML]="
+          'common.table.paginate.info'
+            | transloco
+              : {
+                  from: (_pageIndex - 1) * pageSize + 1,
+                  to: _pageIndex * pageSize,
+                  totalItem
+                }
+        "
+      ></span>
+    </div>
+  </app-fragment>
+</div>

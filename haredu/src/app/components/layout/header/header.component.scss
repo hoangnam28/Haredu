@@ -1,0 +1,64 @@
+@import '../../../../styles/variables';
+
+nz-header {
+  background: $header-background;
+
+  .container-header {
+    background-color: $white;
+    box-shadow: $box-shadow;
+    padding: 8px 16px;
+
+    .search-btn {
+      .short-cut {
+        .icon {
+          font-size: 0.5rem;
+          margin-right: 2px;
+        }
+      }
+
+      .inner {
+        padding: 0 0.5rem;
+        height: 80%;
+        border-radius: 12px;
+        transition: all 0.15s ease-in;
+      }
+
+      &:hover {
+        .inner {
+          background-color: $hover-background;
+        }
+      }
+    }
+  }
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    object-fit: contain;
+    font-weight: 700;
+    color: #4745a1;
+
+    .logo-name {
+      background: $logo-color-webkit;
+      background: $logo-color;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    .logo-image {
+      height: $large-logo-image-height;
+      width: $large-logo-image-width;
+    }
+  }
+
+  .menu-item {
+    display: inline-block;
+    line-height: 1.1;
+    font-size: $font-16;
+    color: $gray-600;
+    font-weight: 600;
+    cursor: pointer;
+  }

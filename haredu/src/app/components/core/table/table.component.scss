@@ -1,0 +1,71 @@
+@import '../../../../styles/variables.scss';
+
+::ng-deep nz-table .ant-table-body {
+  min-height: calc(var(--min-height) + 4px) !important;
+  height: var(--min-height) !important;
+}
+
+::ng-deep nz-table .ant-table-tbody {
+  tr td {
+    transition: none;
+    border-bottom: 1px solid $detail-border;
+
+    a:focus-visible {
+      outline: 1px solid black !important;
+      border-radius: 2px;
+    }
+  }
+
+  &.no-data {
+    min-height: calc(var(--min-height) + 4px) !important;
+    height: var(--min-height) !important;
+  }
+}
+
+.stripe {
+  background-color: $table-stripe;
+}
+
+.nowrap {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.arrow-button {
+  vertical-align: initial;
+
+  span {
+    font-size: $font-12;
+  }
+
+  &:focus-visible {
+    outline: 1px solid black !important;
+  }
+}
+
+::ng-deep nz-pagination.ant-pagination {
+  ul li {
+    button.paginate {
+      &:focus-visible {
+        outline: 1px solid black;
+        outline-offset: 1px;
+      }
+    }
+  }
+}
+
+::ng-deep nz-table th input[type='checkbox'] {
+  height: unset !important;
+}
+
+::ng-deep .ant-table-selection-extra {
+  padding-inline-start: 6px;
+}
+
+::ng-deep app-table .ant-empty-description {
+  white-space: pre-wrap;
+}
+
+::ng-deep app-fragment .c-fragment:has(.selected-count) {
+  padding-top: 16px !important;
+}

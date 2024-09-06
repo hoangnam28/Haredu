@@ -1,0 +1,6 @@
+<div [style.width]="width" class="c-fragment">
+  <ng-component [ngTemplateOutlet]="header"></ng-component>
+  <hr *ngIf="showBorderLine" />
+  <nz-skeleton *ngIf="isLoading" class="h-full w-full" [nzActive]="true" [nzLoading]="isLoading"></nz-skeleton>
+  <ng-content class="fragment-content" *ngIf="!isLoading" [select]="content"></ng-content>
+</div>

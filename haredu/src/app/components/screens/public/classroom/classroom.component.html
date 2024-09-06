@@ -1,0 +1,58 @@
+<div class="flex min-h-[90vh] mt-5 justify-center">
+  <nz-card class="h-full w-[65%] p-3">
+    <div class="flex justify-between">
+      <div class="large-title my-2">{{ class?.name }}</div>
+      <button *ngIf="userRole === role.TUTOR" nz-button nzType="primary" (click)="withdraw()">Receive money</button>
+    </div>
+    <nz-tabset>
+      <nz-tab nzTitle="Home">
+        <div class="flex h-[30vh]">
+          <img class="h-full w-full object-cover" [src]="serverUrl + class?.banner?.imageUrl" />
+        </div>
+        <div class="mt-2">
+          <span class="large-title">Description</span>
+          <div class="rich-text" id="description" #description></div>
+        </div>
+        <div class="mt-2 mb-2">
+          <span class="large-title">Price: {{ (class ? class.price : 0) | formatBalance }} (VND)</span>
+        </div>
+        <div *ngIf="userRole === role.STUDENT">
+          <button nz-button nzType="primary" (click)="joinClass()">
+            {{ isInClass ? 'Leave class' : 'Join class' }}
+          </button>
+        </div>
+      </nz-tab>
+      <nz-tab nzTitle="Slot">
+        <app-schedules [classroomId]="classroomId"></app-schedules>
+      </nz-tab>
+      <nz-tab nzTitle="People">
+        <form nz-form [formGroup]="formGroup">
+          <div class="mt-2 flex">
+            <div class="w-[50%] flex justify-end gap-2">
+              <nz-form-item>
+                <nz-form-control>
+                  <nz-input-group>
+                    <input nz-input formControlName="search" placeholder="Search by user name" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+          </div>
+        </form>
+        <app-table
+          #dataTable
+          [data]="tableData.data"
+          [pageSize]="tableData.pageSize"
+          [pageIndex]="tableData.pageIndex"
+          [totalItem]="tableData.totalItem"
+          [tableConfig]="tableConfig"
+          [height]="'500px'"
+          [isLoading]="isLoading"
+          (onSearch)="onSearch($event)"
+          externalClass="js-tb"
+          parentClass="inner-content"
+        ></app-table>
+      </nz-tab>
+    </nz-tabset>
+  </nz-card>
+</div>

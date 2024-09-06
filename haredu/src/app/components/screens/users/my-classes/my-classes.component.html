@@ -1,0 +1,56 @@
+<nz-alert
+  *ngIf="!user.isVerified && user.role === 'TUTOR'"
+  class="mb-5"
+  nzType="info"
+  nzMessage="Your account has not been verified yet."
+  [nzDescription]="(user.reasonNotVerified ?? '') + ' Update your account for upload your video'"
+  nzShowIcon
+></nz-alert>
+
+<div *ngIf="user.isVerified || user.role !== 'TUTOR'" class="flex justify-center">
+  <nz-card class="w-[80%] h-full" [nzBordered]="true">
+    <div class="flex justify-center large-title">{{ 'screens.users.myClasses' | transloco }}</div>
+    <form nz-form [formGroup]="formGroup" nzLayout="vertical">
+      <nz-form-item class="mt-5 lg:mt-12">
+        <nz-form-control>
+          <div class="flex gap-2">
+            <nz-select
+              (blur)="onBlur('fileds')"
+              formControlName="fileds"
+              nzMode="multiple"
+              nzPlaceHolder="{{ 'screens.auth.filedStudy' | transloco }}"
+            >
+              <nz-option *ngFor="let filed of fileds" [nzValue]="filed._id" [nzLabel]="filed.name"></nz-option>
+            </nz-select>
+            <button nz-button nzType="primary" (click)="clearField()">{{ 'common.clear' | transloco }}</button>
+            <button
+              nz-button
+              nzType="primary"
+              *ngIf="userRole === role.TUTOR"
+              (click)="redirectToCreateUpdate('create')"
+            >
+              {{ 'screens.users.createClass' | transloco }}
+            </button>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group>
+            <input nz-input formControlName="search" placeholder="{{ 'common.search' | transloco }}" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <div class="products flex mb-[10vh] flex-wrap justify-center">
+      <app-class-card
+        *ngFor="let course of classes"
+        [desiredCourse]="course"
+        class="w-full sm:w-[45%] lg:w-[30%] mt-10 mx-2.5"
+      ></app-class-card>
+    </div>
+    <div class="flex justify-end mb-10">
+      <nz-pagination [nzPageIndex]="pageIndex" [nzTotal]="total" [nzPageSize]="pageSize"></nz-pagination>
+    </div>
+  </nz-card>
+</div>
